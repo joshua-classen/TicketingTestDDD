@@ -1,0 +1,11 @@
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/bin/Debug/net8.0/Ticketing.Contracts.deps.json
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/bin/Debug/net8.0/Ticketing.Contracts.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/bin/Debug/net8.0/Ticketing.Contracts.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.AssemblyInfoInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.AssemblyInfo.cs
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.csproj.CoreCompileInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/refint/Ticketing.Contracts.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/Ticketing.Contracts.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/API/Ticketing.Contracts/obj/Debug/net8.0/ref/Ticketing.Contracts.dll

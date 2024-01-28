@@ -1,0 +1,15 @@
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/bin/Debug/net8.0/Ticketing.Application.deps.json
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/bin/Debug/net8.0/Ticketing.Application.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/bin/Debug/net8.0/Ticketing.Application.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.AssemblyInfoInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.AssemblyInfo.cs
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.csproj.CoreCompileInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/refint/Ticketing.Application.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/ref/Ticketing.Application.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/bin/Debug/net8.0/Ticketing.Domain.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/bin/Debug/net8.0/Ticketing.Domain.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.csproj.AssemblyReference.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Core/Ticketing.Application/obj/Debug/net8.0/Ticketing.Application.csproj.CopyComplete

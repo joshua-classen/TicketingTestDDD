@@ -1,0 +1,17 @@
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Infrastructure.deps.json
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Infrastructure.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Infrastructure.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.AssemblyInfoInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.AssemblyInfo.cs
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/refint/Ticketing.Infrastructure.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/ref/Ticketing.Infrastructure.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Application.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Domain.dll
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Application.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/bin/Debug/net8.0/Ticketing.Domain.pdb
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.csproj.AssemblyReference.cache
+/Users/joshuaclassen/Documents/ticketingDotnet/Ticketing/Infrastructure/Ticketing.Infrastructure/obj/Debug/net8.0/Ticketing.Infrastructure.csproj.CopyComplete
