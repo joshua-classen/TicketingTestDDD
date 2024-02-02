@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="school.db" uuid="d6092892-515e-4d8f-be11-85d3653e2ef7">
+    <data-source source="LOCAL" name="ticketing.db" uuid="60b99891-c483-4a4a-9cf9-babe120c39d8">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/API/Ticketing.GraphQL.Web/school.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/API/Ticketing2.GraphQL.Web/ticketing.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
