@@ -1,0 +1,6 @@
+@Ticketing2.GraphQL.Web_HostAddress = http://localhost:5246
+
+GET {{Ticketing2.GraphQL.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
