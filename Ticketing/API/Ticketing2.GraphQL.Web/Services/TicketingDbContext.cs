@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Ticketing2.GraphQL.Web.DTOs;
 
 namespace Ticketing2.GraphQL.Web.Services;
 
@@ -8,7 +7,12 @@ public class TicketingDbContext : DbContext
     public TicketingDbContext(DbContextOptions<TicketingDbContext> options) : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TicketingDbContext).Assembly);
+    }
     
-    // public DbSet<VeranstalterDTO> Veranstalter { get; set; }
-    public DbSet<VeranstalterDTO> Veranstalter { get; set; }
+    public DbSet<DomainObjects.Veranstalter> Veranstalter { get; set; }
 }

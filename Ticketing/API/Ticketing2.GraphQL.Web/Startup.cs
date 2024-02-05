@@ -1,12 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Ticketing2.GraphQL.Web.Schema.Queries;
 using Ticketing2.GraphQL.Web.Services;
-using Ticketing2.GraphQL.Web.Services.Veranstalter;
 
 namespace Ticketing2.GraphQL.Web;
-
-
-//todo: mir fehlt noch ein VeranstalterMapping. Also wie es auf die Datenbank gemappt wird.
 
 public class Startup
 {
@@ -29,7 +25,7 @@ public class Startup
             o => o.UseSqlite(connectionString)//.LogTo(Console.WriteLine)
         );
 
-        services.AddScoped<VeranstalterRepository>();
+        services.AddScoped<TicketingDbContext>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

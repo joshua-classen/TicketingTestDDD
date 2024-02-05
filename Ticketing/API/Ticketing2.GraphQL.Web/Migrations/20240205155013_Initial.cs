@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,10 +14,11 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "Veranstalter",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    HashedPassword = table.Column<string>(type: "TEXT", nullable: false)
+                    hashPasswort = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
