@@ -9,6 +9,6 @@ public class TicketingDbContext : DbContext
     {
     }
     
+    // public DbSet<VeranstalterDTO> Veranstalter { get; set; }
     public DbSet<VeranstalterDTO> Veranstalter { get; set; }
-    
 }

@@ -7,3 +7,10 @@ Es gibt Veranstalter:
         Name
         E-Mail
         hashedPassword
+        
+        
+        
+        
+ Wie speichert man die login informationen?
+ 
+ 

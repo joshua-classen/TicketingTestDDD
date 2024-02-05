@@ -5,6 +5,9 @@ using Ticketing2.GraphQL.Web.Services.Veranstalter;
 
 namespace Ticketing2.GraphQL.Web;
 
+
+//todo: mir fehlt noch ein VeranstalterMapping. Also wie es auf die Datenbank gemappt wird.
+
 public class Startup
 {
     private readonly IConfiguration _configuration;
@@ -17,7 +20,9 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddGraphQLServer()
+            .AddType<VeranstalterType.VeranstalterType>()
             .AddQueryType<QueryTicketing>();
+            
         
         var connectionString = _configuration.GetConnectionString("default");
         services.AddPooledDbContextFactory<TicketingDbContext>(
