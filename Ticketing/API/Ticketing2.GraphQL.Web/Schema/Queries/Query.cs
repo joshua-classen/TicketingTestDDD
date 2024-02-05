@@ -5,7 +5,7 @@ using Ticketing2.GraphQL.Web.Services;
 
 namespace Ticketing2.GraphQL.Web.Schema.Queries;
 
-public class QueryTicketing
+public class Query
 {
     // private readonly VeranstalterRepository _veranstalterRepository;
     //

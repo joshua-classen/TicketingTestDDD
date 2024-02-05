@@ -1,6 +1,6 @@
 namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
-public class VeranstalterInputType
+public class VeranstalterCreateInput
 {
     public string Name { get; set; }
     public string Email { get; set; }
