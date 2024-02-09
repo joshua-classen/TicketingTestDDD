@@ -14,9 +14,17 @@ public class Query
     //     _veranstalterRepository = veranstalterRepository;
     // }
     
-     public async Task<IEnumerable<Veranstalter>> GetVeranstalter2([FromServices] TicketingDbContext context)
+    
+    
+    // das darf z.B. eig nur der admin aufrufen.
+    
+    // das hier vll umstellen auf IQueryable
+    // später im domain driven design darf dass dann nur ein IEnumerable sein
+    // weil der Datenbankzugriff nur in der Infrastruktursschicht stattfinden darf
+     public IQueryable<Veranstalter> GetVeranstalter2([FromServices] TicketingDbContext context)
      {
-         var veranstalter = await context.Veranstalter.ToListAsync();
-         return veranstalter;
+         var abc = context.Veranstalter.AsQueryable();
+         // var veranstalter = await context.Veranstalter.ToListAsync();
+         return abc;
      }
 }

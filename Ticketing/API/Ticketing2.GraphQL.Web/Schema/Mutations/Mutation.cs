@@ -1,4 +1,5 @@
-using HotChocolate.AspNetCore;
+using System.Security.Claims;
+using HotChocolate.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Ticketing2.GraphQL.Web.DomainObjects;
@@ -6,11 +7,11 @@ using Ticketing2.GraphQL.Web.Services;
 
 namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
-public interface IAuthenticationService
-{
-    Task<Veranstalter> AuthenticateAsync(string email, string password);
-    string GenerateToken(Veranstalter user);
-}
+// public interface IAuthenticationService
+// {
+//     Task<Veranstalter> AuthenticateAsync(string email, string password);
+//     string GenerateToken(Veranstalter user);
+// }
 
 public class AuthenticationService : IAuthenticationService
 {
@@ -38,36 +39,75 @@ public class AuthenticationService : IAuthenticationService
         // Du könntest JWT oder eine andere Methode verwenden
         return "dummyAuthToken";
     }
+
+    public Task<AuthenticateResult> AuthenticateAsync(HttpContext context, string? scheme)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task ChallengeAsync(HttpContext context, string? scheme, AuthenticationProperties? properties)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task ForbidAsync(HttpContext context, string? scheme, AuthenticationProperties? properties)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task SignInAsync(HttpContext context, string? scheme, ClaimsPrincipal principal, AuthenticationProperties? properties)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task SignOutAsync(HttpContext context, string? scheme, AuthenticationProperties? properties)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
 public class Mutation
 {
+    
+    [Authorize(Roles = ["Veranstalter"])]
+    public async Task<Veranstalter> CreateVeranstaltung(VeranstalterLoginInput input, [Service] IAuthenticationService authService)
+    {
+        Console.WriteLine("Hier");
+        await Task.Delay(5);
+        
+        var veranstalter = new Veranstalter()
+        {
+            Email = "asdf@test.com",
+            Name = "torsten",
+            hashPasswort = "adsfasdifhaskjdfhaksdf",
+            Id = 42
+        };
+        return veranstalter;
+    }
+    
+    
+    
     // sollte ich hier in der mutation eine methode login erstellen?
-    // ja weil ich ja auch das token speichern muss. 
-    // public async Task<AuthPayload> UserLogin(VeranstalterLoginInput input, [Service] IAuthenticationService authService)
-    // {
-    //     // Überprüfe Benutzeranmeldeinformationen und generiere Token
-    //     // Hier musst du die Authentifizierungslogik implementieren
-    //
-    //     // Dummy-Code für Beispielzwecke
-    //     var user = await authService.AuthenticateAsync(input.Email, input.Password);
-    //     
-    //     if (user == null)
-    //     {
-    //         // Authentifizierung fehlgeschlagen
-    //         throw new GraphQLRequestException(ErrorBuilder.New()
-    //             .SetMessage("Anmeldung fehlgeschlagen. Überprüfen Sie Ihre Anmeldeinformationen.")
-    //             .SetCode("AUTH_ERROR")
-    //             .Build());
-    //     }
-    //
-    //     var token = authService.GenerateToken(user);
-    //
-    //     return new AuthPayload { User = user, Token = token };
-    // }
+    // weiß ich nicht.
+    //[Authorize]
+    public async Task<Veranstalter> UserLogin(VeranstalterLoginInput input, [Service] IAuthenticationService authService)
+    {
+        
+        Console.WriteLine("Hier");
+        await Task.Delay(5);
+        
+        var veranstalter = new Veranstalter()
+        {
+            Email = "asdf@test.com",
+            Name = "torsten",
+            hashPasswort = "adsfasdifhaskjdfhaksdf",
+            Id = 42
+        };
+        return veranstalter;
+    }
     
-    
+    // das hier ist der register Veranstalter
     public async Task<VeranstalterPayload> CreateVeranstalter([FromServices] TicketingDbContext context, VeranstalterCreateInput input)
     {
         // hash and salt password
