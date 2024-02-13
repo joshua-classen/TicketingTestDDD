@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Ticketing2.GraphQL.Web.Schema.Mutations;
@@ -20,43 +21,57 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-        // var signingKey = new SymmetricSecurityKey(
-        //     Encoding.UTF8.GetBytes("MySuperSecretKey"));
-
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstalterType.VeranstalterType>()
             .AddQueryType<Query>()
             .AddMutationType<Mutation>();
         
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "ticket.com",
-                    ValidAudience = "Veranstalter",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YOMyKEY!@#1234"))
-                };
-            });
+        services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<TicketingDbContext>()
+            .AddDefaultTokenProviders();
         
+        // Konfiguriere JWT-Authentifizierung
+
+        var jwtIssuer = _configuration.GetSection("Jwt:Issuer").Get<string>();
+        var jwtKey = _configuration.GetSection("Jwt:Key").Get<string>();
+        if (jwtIssuer is null || jwtKey is null)
+        {
+            throw new Exception("Jwt:Issuer or Jwt:Key not found in appsettings.json");
+        }
+        
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            };
+        });
+        
+        // Konfiguriere Autorisierung mit Rollen
         services.AddAuthorization(options =>
         {
-            options.AddPolicy("AdminOnly", policy =>
-            {
-                policy.RequireRole("Admin");
-            });
+            options.AddPolicy("VeranstalterPolicy", policy => policy.RequireRole("Veranstalter"));
+            options.AddPolicy("KundenPolicy", policy => policy.RequireRole("Kunde"));
         });
-            
         
         var connectionString = _configuration.GetConnectionString("default");
-        services.AddPooledDbContextFactory<TicketingDbContext>(
-            o => o.UseSqlite(connectionString)//.LogTo(Console.WriteLine)
-        );
-
+        services.AddPooledDbContextFactory<TicketingDbContext>(o => o.UseSqlite(connectionString));
+        
+        services.AddScoped<UserManager<IdentityUser>>();
+        services.AddScoped<SignInManager<IdentityUser>>();
         services.AddScoped<TicketingDbContext>();
     }
 
@@ -69,7 +84,7 @@ public class Startup
 
         app.UseRouting();
         app.UseAuthentication();
-        // app.UseAuthorization();
+        app.UseAuthorization();
         
         // app.UseWebSockets();
 

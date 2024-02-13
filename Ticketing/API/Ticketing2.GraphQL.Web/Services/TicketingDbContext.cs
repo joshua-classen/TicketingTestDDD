@@ -1,8 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Ticketing2.GraphQL.Web.authenticationKram;
 
 namespace Ticketing2.GraphQL.Web.Services;
 
-public class TicketingDbContext : DbContext
+
+// Durch IdentityDbContext<ApplicationUser> wird die Identity-Struktur in die Datenbank eingebunden
+public class TicketingDbContext : IdentityDbContext<IdentityUser>
 {
     public TicketingDbContext(DbContextOptions<TicketingDbContext> options) : base(options)
     {
