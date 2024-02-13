@@ -11,7 +11,7 @@ using Ticketing2.GraphQL.Web.Services;
 namespace Ticketing2.GraphQL.Web.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    [Migration("20240210164941_Initial")]
+    [Migration("20240213182805_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -233,6 +233,21 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Veranstalter", (string)null);
+                });
+
+            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Veranstaltung");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

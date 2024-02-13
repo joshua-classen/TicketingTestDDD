@@ -66,6 +66,19 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Veranstaltung",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Veranstaltung", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -229,6 +242,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Veranstalter");
+
+            migrationBuilder.DropTable(
+                name: "Veranstaltung");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

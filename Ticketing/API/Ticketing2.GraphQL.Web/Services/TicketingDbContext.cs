@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Ticketing2.GraphQL.Web.authenticationKram;
+using Ticketing2.GraphQL.Web.DomainObjects;
 
 namespace Ticketing2.GraphQL.Web.Services;
 
-
-// Durch IdentityDbContext<ApplicationUser> wird die Identity-Struktur in die Datenbank eingebunden
 public class TicketingDbContext : IdentityDbContext<IdentityUser>
 {
     public TicketingDbContext(DbContextOptions<TicketingDbContext> options) : base(options)
@@ -19,5 +17,6 @@ public class TicketingDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TicketingDbContext).Assembly);
     }
     
-    public DbSet<DomainObjects.Veranstalter> Veranstalter { get; set; }
+    [Obsolete("Obsolete")] public DbSet<Veranstalter> Veranstalter { get; set; }
+    public DbSet<Veranstaltung> Veranstaltung { get; set; }
 }
