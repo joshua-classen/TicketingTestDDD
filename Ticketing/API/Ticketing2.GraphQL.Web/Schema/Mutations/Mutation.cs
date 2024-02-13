@@ -23,8 +23,7 @@ public class Mutation
         _signInManager = signInManager;
     }
     
-    [Authorize(Roles = ["Veranstalter"])] // das funktioniert noch nicht.
-    // [Authorize] // das funktioniert mit [Authorize]
+    [Authorize(Roles = ["Veranstalter"])]
     public async Task<Veranstaltung> CreateVeranstaltung(
         [Service] TicketingDbContext context,
         
@@ -48,26 +47,32 @@ public class Mutation
         VeranstalterLoginInput input)
     {
         var user = await userManager.FindByEmailAsync(input.Email);
-
-        if (user is null)
-        {
-            throw new Exception("Benutzer nicht gefunden.");
-        }
+        if (user is null) throw new Exception("Benutzer nicht gefunden.");
+        
+        // hier könnte ich mal fragen ob der user die rolle Veranstalter hat
+        
         
         var result = await signInManager.PasswordSignInAsync(user.UserName, input.Password, isPersistent: false, lockoutOnFailure: false);
-
-        if (!result.Succeeded)
+        if (!result.Succeeded) throw new Exception("Falsches Passwort.");
+        
+        
+        var claims = new List<Claim>
         {
-            throw new Exception("Falsches Passwort.");
-        }
-
+            new(ClaimTypes.Name, user.UserName),
+            new(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Role, "Veranstalter")
+            // Weitere Claims hinzufügen
+        };
+        
+        var claimsIdentity = new ClaimsIdentity(claims, "jwt");
+        
         // Generiere das JWT-Token für den eingeloggten Benutzer
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var sectoken = new JwtSecurityToken(configuration["Jwt:Issuer"],
             configuration["Jwt:Issuer"],
-            null,
+            claimsIdentity.Claims,
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials);
 
@@ -75,14 +80,6 @@ public class Mutation
 
         var veranstalterPayload = new VeranstalterPayload(input.Email, token);
         return veranstalterPayload;
-        
-        ///////
-        // Rollenzuweisung für den Veranstalter
-        // var claims = new List<Claim>
-        // {
-        //     new Claim(ClaimTypes.Name, input.Email),
-        //     new Claim(ClaimTypes.Role, "Veranstalter")
-        // };
     }
     
     public async Task<VeranstalterPayload> CreateVeranstalter(
@@ -111,6 +108,21 @@ public class Mutation
         // ich glaube das muss man hier nur im createVeranstalter machen und nicht im loginVeranstalter
         await userManager.AddToRoleAsync(user, "Veranstalter"); 
         
+        
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, user.UserName),
+            new(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Role, "Veranstalter")
+            // Weitere Claims hinzufügen
+        };
+
+        
+        var claimsIdentity = new ClaimsIdentity(claims, "jwt");
+
+        
+        await userManager.AddClaimsAsync(user, claims); //todo: braucht man nur hier oder auch beim login?
+        
         await signInManager.SignInAsync(user, isPersistent: false);
         
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
@@ -118,7 +130,7 @@ public class Mutation
 
         var sectoken = new JwtSecurityToken(configuration["Jwt:Issuer"],
             configuration["Jwt:Issuer"],
-            null,
+            claimsIdentity.Claims,
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials);
 
