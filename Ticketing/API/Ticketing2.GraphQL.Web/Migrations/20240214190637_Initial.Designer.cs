@@ -11,7 +11,7 @@ using Ticketing2.GraphQL.Web.Services;
 namespace Ticketing2.GraphQL.Web.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    [Migration("20240213182805_Initial")]
+    [Migration("20240214190637_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -212,27 +212,19 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstalter", b =>
+            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("hashPasswort")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Veranstalter", (string)null);
+                    b.ToTable("Ticket", (string)null);
                 });
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", b =>
@@ -247,7 +239,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Veranstaltung");
+                    b.ToTable("Veranstaltung", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

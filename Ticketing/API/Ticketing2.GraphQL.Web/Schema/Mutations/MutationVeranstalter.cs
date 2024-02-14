@@ -1,45 +1,15 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using HotChocolate.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Ticketing2.GraphQL.Web.DomainObjects;
-using Ticketing2.GraphQL.Web.Services;
 
 namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
-public class Mutation
+
+[ExtendObjectType(Name = "Mutation")]
+public class MutationVeranstalter
 {
-    // private properties entfernen da alle Methoden die Services injeziert kriegen.
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
-
-    
-    // todo: Konstruktor eventuell entfernen
-    public Mutation(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
-    {
-        _userManager = userManager;
-        _signInManager = signInManager;
-    }
-    
-    [Authorize(Roles = ["Veranstalter"])]
-    public async Task<Veranstaltung> CreateVeranstaltung(
-        [Service] TicketingDbContext context,
-        
-        VeranstaltungCreateInput input
-        )
-    {
-        var veranstaltung = new Veranstaltung()
-        {
-            Name = input.Name
-        };
-        context.Veranstaltung.Add(veranstaltung);
-        await context.SaveChangesAsync();
-
-        return veranstaltung;
-    }
-    
     public async Task<VeranstalterPayload> LoginVeranstalter(
         [Service] UserManager<IdentityUser> userManager,
         [Service] SignInManager<IdentityUser> signInManager,
@@ -53,15 +23,13 @@ public class Mutation
         
         
         var result = await signInManager.PasswordSignInAsync(user.UserName, input.Password, isPersistent: false, lockoutOnFailure: false);
-        if (!result.Succeeded) throw new Exception("Falsches Passwort.");
-        
+        if (!result.Succeeded) throw new Exception("Falsche Credentials.");
         
         var claims = new List<Claim>
         {
             new(ClaimTypes.Name, user.UserName),
             new(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, "Veranstalter")
-            // Weitere Claims hinzufügen
+            new(ClaimTypes.Role, "Veranstalter")
         };
         
         var claimsIdentity = new ClaimsIdentity(claims, "jwt");
@@ -113,14 +81,9 @@ public class Mutation
         {
             new(ClaimTypes.Name, user.UserName),
             new(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, "Veranstalter")
-            // Weitere Claims hinzufügen
+            new(ClaimTypes.Role, "Veranstalter")
         };
-
-        
         var claimsIdentity = new ClaimsIdentity(claims, "jwt");
-
-        
         await userManager.AddClaimsAsync(user, claims); //todo: braucht man nur hier oder auch beim login?
         
         await signInManager.SignInAsync(user, isPersistent: false);

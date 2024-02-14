@@ -51,18 +51,16 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Veranstalter",
+                name: "Ticket",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    hashPasswort = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Veranstalter", x => x.Id);
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,7 +239,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Veranstalter");
+                name: "Ticket");
 
             migrationBuilder.DropTable(
                 name: "Veranstaltung");

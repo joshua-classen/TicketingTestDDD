@@ -1,9 +1,9 @@
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Ticketing2.GraphQL.Web.GraphQLTypes;
 using Ticketing2.GraphQL.Web.Schema.Mutations;
 using Ticketing2.GraphQL.Web.Schema.Queries;
 using Ticketing2.GraphQL.Web.Services;
@@ -23,9 +23,18 @@ public class Startup
     {
         services.AddGraphQLServer()
             .AddAuthorization()
-            .AddType<VeranstalterType.VeranstalterType>()
-            .AddQueryType<Query>()
-            .AddMutationType<Mutation>();
+            .AddType<VeranstaltungType>()
+            .AddType<TicketType>()
+            .AddQueryType(d => d.Name("Query"))
+            .AddTypeExtension<QueryVeranstaltung>()
+            .AddTypeExtension<QueryTicket>()
+            .AddMutationType(d => d.Name("Mutation"))
+            .AddType<MutationVeranstalter>()
+            .AddType<MutationVeranstaltung>()
+            .AddType<MutationTicket>();
+
+
+            
         
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<TicketingDbContext>()
