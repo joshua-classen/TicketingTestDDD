@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ticketing2.GraphQL.Web.DomainObjects;
 
-namespace Ticketing2.GraphQL.Web.VeranstalterDBMapping;
+namespace Ticketing2.GraphQL.Web.DBMapping;
 
 public class VeranstaltungMapping : IEntityTypeConfiguration<Veranstaltung>
 {
