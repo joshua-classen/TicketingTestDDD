@@ -17,6 +17,7 @@ public class TicketingDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TicketingDbContext).Assembly);
     }
     
+    public DbSet<VeranstalterUser> VeranstalterUser { get; set; }
     public DbSet<Veranstaltung> Veranstaltung { get; set; }
     public DbSet<Ticket> Ticket { get; set; }
 }

@@ -64,16 +64,16 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Veranstaltung",
+                name: "VeranstalterUser",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    AspNetUserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Veranstaltung", x => x.Id);
+                    table.PrimaryKey("PK_VeranstalterUser", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,6 +182,25 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Veranstaltung",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    VeranstalterUserId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Veranstaltung", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Veranstaltung_VeranstalterUser_VeranstalterUserId",
+                        column: x => x.VeranstalterUserId,
+                        principalTable: "VeranstalterUser",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -218,6 +237,11 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Veranstaltung_VeranstalterUserId",
+                table: "Veranstaltung",
+                column: "VeranstalterUserId");
         }
 
         /// <inheritdoc />
@@ -249,6 +273,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "VeranstalterUser");
         }
     }
 }

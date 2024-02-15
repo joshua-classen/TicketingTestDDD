@@ -1,16 +1,3 @@
-TicketingSaaS
 
-Es gibt Veranstalter:
-    Ein Veranstalter kann sich registrieren.
-    Ein Veranstalter kann sich einloggen.
-    Veranstalter:
-        Name
-        E-Mail
-        hashedPassword
-        
-        
-        
-        
- Wie speichert man die login informationen?
  
  

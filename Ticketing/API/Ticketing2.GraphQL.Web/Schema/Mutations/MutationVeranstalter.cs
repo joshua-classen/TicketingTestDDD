@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Ticketing2.GraphQL.Web.DomainObjects;
+using Ticketing2.GraphQL.Web.Services;
 
 namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
@@ -51,6 +53,7 @@ public class MutationVeranstalter
     }
     
     public async Task<VeranstalterPayload> CreateVeranstalter(
+        [Service] TicketingDbContext ticketingDbContext,
         [Service] UserManager<IdentityUser> userManager, 
         [Service] SignInManager<IdentityUser> signInManager,
         [Service] IConfiguration configuration,
@@ -87,6 +90,17 @@ public class MutationVeranstalter
         await userManager.AddClaimsAsync(user, claims); //todo: braucht man nur hier oder auch beim login?
         
         await signInManager.SignInAsync(user, isPersistent: false);
+        
+        // erstelle einen Veranstalter und füge ihm die user.Id hinzu
+        // und speicher ihn ab
+        var veranstalter = new VeranstalterUser()
+        {
+            AspNetUserId = user.Id,
+            Veranstaltungen = new List<Veranstaltung>()
+        };
+        ticketingDbContext.VeranstalterUser.Add(veranstalter);
+        await ticketingDbContext.SaveChangesAsync();
+        
         
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
