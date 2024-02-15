@@ -11,7 +11,7 @@ using Ticketing2.GraphQL.Web.Services;
 namespace Ticketing2.GraphQL.Web.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    [Migration("20240214190637_Initial")]
+    [Migration("20240215153230_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
