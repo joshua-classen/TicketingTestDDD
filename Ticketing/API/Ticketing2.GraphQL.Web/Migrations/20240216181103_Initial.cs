@@ -51,16 +51,16 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
+                name: "KundeUser",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    AspNetUserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_KundeUser", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,6 +183,25 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ticket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    KundeUserId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ticket_KundeUser_KundeUserId",
+                        column: x => x.KundeUserId,
+                        principalTable: "KundeUser",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Veranstaltung",
                 columns: table => new
                 {
@@ -239,6 +258,11 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ticket_KundeUserId",
+                table: "Ticket",
+                column: "KundeUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Veranstaltung_VeranstalterUserId",
                 table: "Veranstaltung",
                 column: "VeranstalterUserId");
@@ -273,6 +297,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "KundeUser");
 
             migrationBuilder.DropTable(
                 name: "VeranstalterUser");

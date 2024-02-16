@@ -4,7 +4,7 @@ using Ticketing2.GraphQL.Web.DomainObjects;
 
 namespace Ticketing2.GraphQL.Web.DBMapping;
 
-public class VeranstalterMapping : IEntityTypeConfiguration<VeranstalterUser>
+public class VeranstalterUserMapping : IEntityTypeConfiguration<VeranstalterUser>
 {
     public void Configure(EntityTypeBuilder<VeranstalterUser> builder)
     {
@@ -13,7 +13,7 @@ public class VeranstalterMapping : IEntityTypeConfiguration<VeranstalterUser>
         builder.Property(veranstalter => veranstalter.Id).ValueGeneratedOnAdd();
         
         
-        // das muss später ein fremdschlüssel sein
+        //todo: das muss später ein fremdschlüssel sein
         builder.Property(veranstalter => veranstalter.AspNetUserId);
 
         builder.HasMany(veranstalter => veranstalter.Veranstaltungen);

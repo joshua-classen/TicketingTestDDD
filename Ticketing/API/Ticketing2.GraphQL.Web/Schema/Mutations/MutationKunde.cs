@@ -8,25 +8,26 @@ namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
 
 [ExtendObjectType(Name = "Mutation")]
-public class MutationVeranstalter
+public class MutationKunde 
 {
-    public async Task<VeranstalterPayload> CreateVeranstalter(
+    public async Task<KundePayload> CreateKunde(
         [Service] TicketingDbContext ticketingDbContext,
-        [Service] UserManager<IdentityUser> userManager, 
+        [Service] UserManager<IdentityUser> userManager,
         [Service] SignInManager<IdentityUser> signInManager,
         [Service] IConfiguration configuration,
         [Service] RoleManager<IdentityRole> roleManager,
-        
-        VeranstalterCreateInput input)
+
+        KundeCreateInput input)
     {
-        if (!await roleManager.RoleExistsAsync("Veranstalter"))
+        if (!await roleManager.RoleExistsAsync("Kunde"))
         {
-            await roleManager.CreateAsync(new IdentityRole("Veranstalter"));
+            await roleManager.CreateAsync(new IdentityRole("Kunde"));
         }
         
         var user = new IdentityUser() { UserName = input.Email };
         var claimsIdentity = GenerateClaimsIdentity();
-
+        
+        
         await using var transaction = await ticketingDbContext.Database.BeginTransactionAsync();
         try
         {
@@ -37,16 +38,16 @@ public class MutationVeranstalter
                 throw new Exception(msg);
             }
 
-            await userManager.AddToRoleAsync(user, "Veranstalter");
+            await userManager.AddToRoleAsync(user, "Kunde");
             await userManager.AddClaimsAsync(user, claimsIdentity.Claims); 
             await signInManager.SignInAsync(user, isPersistent: false);
 
-            var veranstalter = new VeranstalterUser()
+            var kunde = new KundeUser()
             {
                 AspNetUserId = user.Id,
-                Veranstaltungen = new List<Veranstaltung>()
+                Tickets = new List<Ticket>()
             };
-            ticketingDbContext.VeranstalterUser.Add(veranstalter);
+            ticketingDbContext.KundeUser.Add(kunde);
             await ticketingDbContext.SaveChangesAsync();
             
             await transaction.CommitAsync();
@@ -58,8 +59,8 @@ public class MutationVeranstalter
         }
         
         var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var veranstalterPayload = new VeranstalterPayload(input.Email, token);
-        return veranstalterPayload;
+        var kundePayload = new KundePayload(input.Email, token);
+        return kundePayload;
         
         
         ClaimsIdentity GenerateClaimsIdentity()
@@ -73,12 +74,14 @@ public class MutationVeranstalter
         }
     }
     
-    public async Task<VeranstalterPayload> LoginVeranstalter(
+    
+    
+    public async Task<KundePayload> LoginKunde(
         [Service] UserManager<IdentityUser> userManager,
         [Service] SignInManager<IdentityUser> signInManager,
         [Service] IConfiguration configuration,
         
-        VeranstalterLoginInput input)
+        KundeLoginInput input)
     {
         var user = await ValidateInputAndGetAspNetUser();
         await LoginUser();
@@ -87,8 +90,8 @@ public class MutationVeranstalter
         var claimsIdentity = new ClaimsIdentity(claims, "jwt");
         
         var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var veranstalterPayload = new VeranstalterPayload(input.Email, token); // todo: wie speichert man das im cookie ab?
-        return veranstalterPayload;
+        var kundePayload = new KundePayload(input.Email, token); // todo: wie speichert man das im cookie ab?
+        return kundePayload;
         
         
         async Task<IdentityUser> ValidateInputAndGetAspNetUser()

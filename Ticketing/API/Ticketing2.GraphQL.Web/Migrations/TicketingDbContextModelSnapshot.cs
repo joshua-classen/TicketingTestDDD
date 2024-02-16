@@ -209,10 +209,28 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.KundeUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AspNetUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KundeUser", (string)null);
+                });
+
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("KundeUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -220,6 +238,8 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KundeUserId");
 
                     b.ToTable("Ticket", (string)null);
                 });
@@ -310,11 +330,23 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Ticket", b =>
+                {
+                    b.HasOne("Ticketing2.GraphQL.Web.DomainObjects.KundeUser", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("KundeUserId");
+                });
+
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", b =>
                 {
                     b.HasOne("Ticketing2.GraphQL.Web.DomainObjects.VeranstalterUser", null)
                         .WithMany("Veranstaltungen")
                         .HasForeignKey("VeranstalterUserId");
+                });
+
+            modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.KundeUser", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.VeranstalterUser", b =>

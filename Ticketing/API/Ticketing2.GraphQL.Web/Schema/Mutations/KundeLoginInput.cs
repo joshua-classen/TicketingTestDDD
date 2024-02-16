@@ -1,6 +1,6 @@
 namespace Ticketing2.GraphQL.Web.Schema.Mutations;
 
-public record VeranstalterCreateInput(
+public record KundeLoginInput(
     string Email,
     string Password
     );

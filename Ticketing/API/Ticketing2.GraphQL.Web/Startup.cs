@@ -27,21 +27,16 @@ public class Startup
             .AddType<TicketType>()
             .AddQueryType(d => d.Name("Query"))
             .AddTypeExtension<QueryVeranstaltung>()
-            .AddTypeExtension<QueryTicket>()
             .AddMutationType(d => d.Name("Mutation"))
+            .AddType<MutationKunde>()
             .AddType<MutationVeranstalter>()
-            .AddType<MutationVeranstaltung>()
-            .AddType<MutationTicket>();
-
-
-            
+            .AddType<MutationVeranstaltung>();
         
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<TicketingDbContext>()
             .AddDefaultTokenProviders();
         
         // Konfiguriere JWT-Authentifizierung
-
         var jwtIssuer = _configuration.GetSection("Jwt:Issuer").Get<string>();
         var jwtKey = _configuration.GetSection("Jwt:Key").Get<string>();
         if (jwtIssuer is null || jwtKey is null)
