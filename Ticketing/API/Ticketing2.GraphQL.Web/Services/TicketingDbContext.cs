@@ -19,6 +19,6 @@ public class TicketingDbContext : IdentityDbContext<IdentityUser>
     
     public DbSet<KundeUser> KundeUser { get; set; }
     public DbSet<VeranstalterUser> VeranstalterUser { get; set; }
-    public DbSet<Veranstaltung> Veranstaltung { get; set; }
-    
+    public DbSet<Veranstaltung> Veranstaltung { get; set; } // sollte man den Namen hier in Singular oder Plural schreiben?
+    public DbSet<PurchasedTicket> PurchasedTickets { get; set; } // ich glaube das muss hier rein
 }

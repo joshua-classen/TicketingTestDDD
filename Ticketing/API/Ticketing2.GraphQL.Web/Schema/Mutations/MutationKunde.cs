@@ -29,7 +29,6 @@ public class MutationKunde
         var user = new IdentityUser() { UserName = input.Email };
         var claimsIdentity = GenerateClaimsIdentity();
         
-        
         await using var transaction = await ticketingDbContext.Database.BeginTransactionAsync();
         try
         {
@@ -46,7 +45,7 @@ public class MutationKunde
 
             var kunde = new KundeUser()
             {
-                AspNetUserId = user.Id
+                AspNetUserId = user.Id,
             };
             ticketingDbContext.KundeUser.Add(kunde);
             await ticketingDbContext.SaveChangesAsync();
@@ -55,7 +54,7 @@ public class MutationKunde
         }
         catch (Exception e)
         {
-            await transaction.RollbackAsync();
+            await transaction.RollbackAsync(); //todo: muss das hier sein? ich glaube nicht.
             throw;
         }
         
@@ -68,7 +67,7 @@ public class MutationKunde
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.Role, "Veranstalter"),
+                new(ClaimTypes.Role, "Kunde"),
                 new(ClaimTypes.NameIdentifier, user.Id)
             };
             return new ClaimsIdentity(claims, "jwt");

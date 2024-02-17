@@ -17,7 +17,7 @@ public static class VeranstalterRepository
         var aspNetUser = await userManager.GetUserAsync(claimsPrincipal);
         if (aspNetUser is null)
         {
-            throw new Exception("User nicht gefunden.");
+            throw new Exception("AspNetUser nicht gefunden.");
         }
         
         var veranstalter = ticketingDbContext.VeranstalterUser

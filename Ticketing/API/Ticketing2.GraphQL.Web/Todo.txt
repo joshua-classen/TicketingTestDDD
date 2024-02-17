@@ -1,1 +1,5 @@
-email aus token entfernen und stattdessen userId als claim inkludieren.
+
+
+Id alle auf GUID umstellen.
+
+

@@ -55,7 +55,7 @@ public class MutationVeranstalter
         }
         catch (Exception e)
         {
-            await transaction.RollbackAsync();
+            await transaction.RollbackAsync(); //todo: muss das hier sein? ich glaube nicht.
             throw;
         }
         

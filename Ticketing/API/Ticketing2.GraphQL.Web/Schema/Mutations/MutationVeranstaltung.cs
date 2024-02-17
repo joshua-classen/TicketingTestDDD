@@ -23,11 +23,15 @@ public class MutationVeranstaltung
         
         var veranstaltung = new Veranstaltung()
         {
-            Name = input.Name
+            Name = input.Name,
+            TicketPriceEuroCent = 1999,
+            MaxAmountTickets = 100
         };
+        
         veranstalter.Veranstaltungen.Add(veranstaltung);
         await ticketingDbContext.SaveChangesAsync();
         
         return veranstaltung;
+        // todo: sollte ich hier vll alle Veranstaltungen von dem Veranstalter zurückgeben?
     }
 }

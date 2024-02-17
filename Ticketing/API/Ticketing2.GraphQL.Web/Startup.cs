@@ -25,11 +25,12 @@ public class Startup
             .AddAuthorization()
             .AddType<VeranstaltungType>()
             .AddQueryType(d => d.Name("Query"))
-            .AddTypeExtension<QueryVeranstaltung>()
+            .AddTypeExtension<QueryVeranstaltung>() // todo: Klären: Unterschied zu AddTypeExtension und AddType??
             .AddMutationType(d => d.Name("Mutation"))
             .AddType<MutationKunde>()
             .AddType<MutationVeranstalter>()
-            .AddType<MutationVeranstaltung>();
+            .AddType<MutationVeranstaltung>()
+            .AddType<MutationPurchaseTicket>();
         
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<TicketingDbContext>()
@@ -38,7 +39,7 @@ public class Startup
         // Konfiguriere JWT-Authentifizierung
         var jwtIssuer = _configuration.GetSection("Jwt:Issuer").Get<string>();
         var jwtKey = _configuration.GetSection("Jwt:Key").Get<string>();
-        if (jwtIssuer is null || jwtKey is null)
+        if (jwtIssuer is null || jwtKey is null) // todo: überarbeiten.
         {
             throw new Exception("Jwt:Issuer or Jwt:Key not found in appsettings.json");
         }

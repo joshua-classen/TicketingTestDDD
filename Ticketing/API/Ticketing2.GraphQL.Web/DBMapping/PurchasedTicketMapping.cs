@@ -11,7 +11,11 @@ public class PurchasedTicketMapping : IEntityTypeConfiguration<PurchasedTicket>
         builder.ToTable(nameof(PurchasedTicket));
         builder.HasKey(purchasedTicket => purchasedTicket.Id);
         builder.Property(purchasedTicket => purchasedTicket.Id).ValueGeneratedOnAdd();
-        
+        // builder.Property(purchasedTicket => purchasedTicket.KundeUser); // das funktioniert nicht. Wirft Exception
+        builder.HasOne(purchasedTicket => purchasedTicket.KundeUser); // das läuft.
+
+
+
         builder.Property(purchasedTicket => purchasedTicket.TicketNumber);
         builder.Property(purchasedTicket => purchasedTicket.PurchaseDate);
         builder.Property(purchasedTicket => purchasedTicket.TicketPriceEuroCent);
