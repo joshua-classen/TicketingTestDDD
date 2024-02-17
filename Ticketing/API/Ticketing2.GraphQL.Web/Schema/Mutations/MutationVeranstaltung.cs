@@ -2,6 +2,7 @@ using System.Security.Claims;
 using HotChocolate.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Ticketing2.GraphQL.Web.DomainObjects;
+using Ticketing2.GraphQL.Web.Inputs;
 using Ticketing2.GraphQL.Web.Repository;
 using Ticketing2.GraphQL.Web.Services;
 

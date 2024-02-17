@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Ticketing2.GraphQL.Web.DomainObjects;
+using Ticketing2.GraphQL.Web.Inputs;
+using Ticketing2.GraphQL.Web.Schema.Payload;
 using Ticketing2.GraphQL.Web.Services;
 using Ticketing2.GraphQL.Web.TokenGenerator;
 

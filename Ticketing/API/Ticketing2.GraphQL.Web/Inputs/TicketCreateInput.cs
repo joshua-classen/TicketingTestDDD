@@ -1,4 +1,4 @@
-namespace Ticketing2.GraphQL.Web.Schema.Mutations;
+namespace Ticketing2.GraphQL.Web.Inputs;
 
 public record TicketCreateInput(
     string Name
