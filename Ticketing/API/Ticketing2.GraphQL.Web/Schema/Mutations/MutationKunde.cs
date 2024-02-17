@@ -46,8 +46,7 @@ public class MutationKunde
 
             var kunde = new KundeUser()
             {
-                AspNetUserId = user.Id,
-                Tickets = new List<Ticket>()
+                AspNetUserId = user.Id
             };
             ticketingDbContext.KundeUser.Add(kunde);
             await ticketingDbContext.SaveChangesAsync();

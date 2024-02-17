@@ -14,11 +14,11 @@ public class TicketingDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TicketingDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TicketingDbContext).Assembly); // Was macht das hier? 
     }
     
     public DbSet<KundeUser> KundeUser { get; set; }
     public DbSet<VeranstalterUser> VeranstalterUser { get; set; }
     public DbSet<Veranstaltung> Veranstaltung { get; set; }
-    public DbSet<Ticket> Ticket { get; set; }
+    
 }

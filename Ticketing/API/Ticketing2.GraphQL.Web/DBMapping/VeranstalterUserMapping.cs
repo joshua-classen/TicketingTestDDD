@@ -15,6 +15,7 @@ public class VeranstalterUserMapping : IEntityTypeConfiguration<VeranstalterUser
         
         //todo: das muss später ein fremdschlüssel sein
         builder.Property(veranstalter => veranstalter.AspNetUserId);
+        // builder.HasOne(veranstalter => veranstalter.AspNetUserId); // hier bekommt der das nicht hin, das liegt wohl daran das das ein string ist.todo: Der soll hier ne andere Id nutzen.
 
         builder.HasMany(veranstalter => veranstalter.Veranstaltungen);
     }

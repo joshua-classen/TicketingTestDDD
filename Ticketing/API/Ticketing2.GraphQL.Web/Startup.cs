@@ -24,7 +24,6 @@ public class Startup
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstaltungType>()
-            .AddType<TicketType>()
             .AddQueryType(d => d.Name("Query"))
             .AddTypeExtension<QueryVeranstaltung>()
             .AddMutationType(d => d.Name("Mutation"))

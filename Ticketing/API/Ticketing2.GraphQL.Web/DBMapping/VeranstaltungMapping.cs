@@ -13,5 +13,7 @@ public class VeranstaltungMapping : IEntityTypeConfiguration<Veranstaltung>
         builder.Property(veranstaltung => veranstaltung.Id).ValueGeneratedOnAdd();
 
         builder.Property(veranstaltung => veranstaltung.Name);
+        builder.Property(veranstaltung => veranstaltung.MaxAmountTickets);
+        builder.HasMany(veranstaltung => veranstaltung.PurchasedTickets);
     }
 }

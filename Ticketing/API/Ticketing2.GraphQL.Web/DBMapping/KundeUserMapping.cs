@@ -14,7 +14,8 @@ public class KundeUserMapping : IEntityTypeConfiguration<KundeUser>
         
         //todo: das muss später ein fremdschlüssel sein
         builder.Property(kundeUser => kundeUser.AspNetUserId);
+        // builder.HasOne(kundeUser => kundeUser.AspNetUserId); // hier bekommt der das nicht hin
         
-        builder.HasMany(kundeUser => kundeUser.Tickets);
+        builder.HasMany(kundeUser => kundeUser.PurchasedTickets);
     }
 }
