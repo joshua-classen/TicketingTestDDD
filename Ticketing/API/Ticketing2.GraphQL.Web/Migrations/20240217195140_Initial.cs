@@ -211,7 +211,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     TicketNumber = table.Column<uint>(type: "INTEGER", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TicketPriceEuroCent = table.Column<uint>(type: "INTEGER", nullable: false),
-                    VeranstaltungIdId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VeranstaltungId = table.Column<int>(type: "INTEGER", nullable: false),
                     KundeUserId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -223,8 +223,8 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         principalTable: "KundeUser",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PurchasedTicket_Veranstaltung_VeranstaltungIdId",
-                        column: x => x.VeranstaltungIdId,
+                        name: "FK_PurchasedTicket_Veranstaltung_VeranstaltungId",
+                        column: x => x.VeranstaltungId,
                         principalTable: "Veranstaltung",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -273,9 +273,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 column: "KundeUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchasedTicket_VeranstaltungIdId",
+                name: "IX_PurchasedTicket_VeranstaltungId",
                 table: "PurchasedTicket",
-                column: "VeranstaltungIdId");
+                column: "VeranstaltungId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Veranstaltung_VeranstalterUserId",

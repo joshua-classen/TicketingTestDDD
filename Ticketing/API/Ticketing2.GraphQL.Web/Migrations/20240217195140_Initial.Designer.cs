@@ -11,7 +11,7 @@ using Ticketing2.GraphQL.Web.Services;
 namespace Ticketing2.GraphQL.Web.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    [Migration("20240217194058_Initial")]
+    [Migration("20240217195140_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -245,14 +245,14 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.Property<uint>("TicketPriceEuroCent")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("VeranstaltungIdId")
+                    b.Property<int>("VeranstaltungId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KundeUserId");
 
-                    b.HasIndex("VeranstaltungIdId");
+                    b.HasIndex("VeranstaltungId");
 
                     b.ToTable("PurchasedTicket", (string)null);
                 });
@@ -352,13 +352,13 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         .WithMany("PurchasedTickets")
                         .HasForeignKey("KundeUserId");
 
-                    b.HasOne("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", "VeranstaltungId")
+                    b.HasOne("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", "Veranstaltung")
                         .WithMany("PurchasedTickets")
-                        .HasForeignKey("VeranstaltungIdId")
+                        .HasForeignKey("VeranstaltungId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("VeranstaltungId");
+                    b.Navigation("Veranstaltung");
                 });
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", b =>

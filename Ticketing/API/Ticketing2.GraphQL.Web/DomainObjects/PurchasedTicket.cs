@@ -6,5 +6,5 @@ public class PurchasedTicket
     public uint TicketNumber { get; set; }
     public DateTime PurchaseDate { get; set; }
     public uint TicketPriceEuroCent { get; set; }
-    public Veranstaltung VeranstaltungId { get; set; } = null!;
+    public Veranstaltung Veranstaltung { get; set; } = null!;
 }

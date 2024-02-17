@@ -16,7 +16,7 @@ public class PurchasedTicketMapping : IEntityTypeConfiguration<PurchasedTicket>
         builder.Property(purchasedTicket => purchasedTicket.PurchaseDate);
         builder.Property(purchasedTicket => purchasedTicket.TicketPriceEuroCent);
         
-        builder.HasOne(purchasedTicket => purchasedTicket.VeranstaltungId); // ef core setzt hier automatisch foreign key 
+        builder.HasOne(purchasedTicket => purchasedTicket.Veranstaltung); // ef core setzt hier automatisch foreign key 
     }
     
 }
