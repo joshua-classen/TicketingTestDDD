@@ -211,9 +211,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.KundeUser", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AspNetUserId")
                         .IsRequired()
@@ -226,12 +226,12 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.PurchasedTicket", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("KundeUserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("KundeUserId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("TEXT");
@@ -242,8 +242,8 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.Property<int>("TicketPriceEuroCent")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("VeranstaltungId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("VeranstaltungId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -256,9 +256,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.VeranstalterUser", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AspNetUserId")
                         .IsRequired()
@@ -271,9 +271,9 @@ namespace Ticketing2.GraphQL.Web.Migrations
 
             modelBuilder.Entity("Ticketing2.GraphQL.Web.DomainObjects.Veranstaltung", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<uint>("MaxAmountTickets")
                         .HasColumnType("INTEGER");
@@ -285,8 +285,8 @@ namespace Ticketing2.GraphQL.Web.Migrations
                     b.Property<uint>("TicketPriceEuroCent")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("VeranstalterUserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("VeranstalterUserId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

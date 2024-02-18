@@ -54,8 +54,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "KundeUser",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     AspNetUserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -67,8 +66,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "VeranstalterUser",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     AspNetUserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -186,12 +184,11 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "Veranstaltung",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     TicketPriceEuroCent = table.Column<uint>(type: "INTEGER", nullable: false),
                     MaxAmountTickets = table.Column<uint>(type: "INTEGER", nullable: false),
-                    VeranstalterUserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    VeranstalterUserId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -207,13 +204,12 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 name: "PurchasedTicket",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    KundeUserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    KundeUserId = table.Column<Guid>(type: "TEXT", nullable: false),
                     TicketNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TicketPriceEuroCent = table.Column<int>(type: "INTEGER", nullable: false),
-                    VeranstaltungId = table.Column<int>(type: "INTEGER", nullable: false)
+                    VeranstaltungId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

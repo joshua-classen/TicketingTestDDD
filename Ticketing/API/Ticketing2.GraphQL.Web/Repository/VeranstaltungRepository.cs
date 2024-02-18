@@ -10,7 +10,7 @@ public class VeranstaltungRepository
     // todo: verwende strongly typed Ids
     public static async Task<Veranstaltung> GetVeranstaltungById(
         TicketingDbContext ticketingDbContext, // kann der den hier auch injected bekommen?
-        int id)
+        Guid id)
     {
         var veranstaltung = await ticketingDbContext.Veranstaltung.FindAsync(id);
         if (veranstaltung is null)
