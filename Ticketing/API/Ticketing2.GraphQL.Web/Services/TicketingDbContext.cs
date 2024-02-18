@@ -5,7 +5,7 @@ using Ticketing2.GraphQL.Web.DomainObjects;
 
 namespace Ticketing2.GraphQL.Web.Services;
 
-public class TicketingDbContext : IdentityDbContext<IdentityUser>
+public class TicketingDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public TicketingDbContext(DbContextOptions<TicketingDbContext> options) : base(options)
     {

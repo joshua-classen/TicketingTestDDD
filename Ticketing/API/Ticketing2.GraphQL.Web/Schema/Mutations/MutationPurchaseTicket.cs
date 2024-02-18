@@ -16,7 +16,7 @@ public class MutationPurchaseTicket
     [Authorize(Roles = ["Kunde"])]
     public async Task<PurchasedTicket> BuyTicket(
         [Service] TicketingDbContext ticketingDbContext,
-        [Service] UserManager<IdentityUser> userManager,
+        [Service] UserManager<ApplicationUser> userManager,
         ClaimsPrincipal claimsPrincipal,
         
         BuyTicketCreateInput input)

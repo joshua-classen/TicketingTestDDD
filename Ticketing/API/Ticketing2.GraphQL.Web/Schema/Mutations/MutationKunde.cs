@@ -14,19 +14,19 @@ public class MutationKunde
 {
     public async Task<KundePayload> CreateKunde(
         [Service] TicketingDbContext ticketingDbContext,
-        [Service] UserManager<IdentityUser> userManager,
-        [Service] SignInManager<IdentityUser> signInManager,
+        [Service] UserManager<ApplicationUser> userManager,
+        [Service] SignInManager<ApplicationUser> signInManager,
         [Service] IConfiguration configuration,
-        [Service] RoleManager<IdentityRole> roleManager,
+        [Service] RoleManager<ApplicationRole> roleManager,
 
         KundeCreateInput input)
     {
         if (!await roleManager.RoleExistsAsync("Kunde"))
         {
-            await roleManager.CreateAsync(new IdentityRole("Kunde"));
+            await roleManager.CreateAsync(new ApplicationRole("Kunde"));
         }
         
-        var user = new IdentityUser() { UserName = input.Email };
+        var user = new ApplicationUser() { UserName = input.Email };
         var claimsIdentity = GenerateClaimsIdentity();
         
         await using var transaction = await ticketingDbContext.Database.BeginTransactionAsync();
@@ -68,7 +68,7 @@ public class MutationKunde
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Role, "Kunde"),
-                new(ClaimTypes.NameIdentifier, user.Id)
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()) // todo: überprüfen ob das hier funktioniert
             };
             return new ClaimsIdentity(claims, "jwt");
         }
@@ -77,8 +77,8 @@ public class MutationKunde
     
     
     public async Task<KundePayload> LoginKunde(
-        [Service] UserManager<IdentityUser> userManager,
-        [Service] SignInManager<IdentityUser> signInManager,
+        [Service] UserManager<ApplicationUser> userManager,
+        [Service] SignInManager<ApplicationUser> signInManager,
         [Service] IConfiguration configuration,
         
         KundeLoginInput input)
@@ -94,7 +94,7 @@ public class MutationKunde
         return kundePayload;
         
         
-        async Task<IdentityUser> ValidateInputAndGetAspNetUser()
+        async Task<ApplicationUser> ValidateInputAndGetAspNetUser()
         {
             if (input.Email is null || input.Password is null)
             {

@@ -14,19 +14,19 @@ public class MutationVeranstalter
 {
     public async Task<VeranstalterPayload> CreateVeranstalter(
         [Service] TicketingDbContext ticketingDbContext,
-        [Service] UserManager<IdentityUser> userManager, 
-        [Service] SignInManager<IdentityUser> signInManager,
+        [Service] UserManager<ApplicationUser> userManager, 
+        [Service] SignInManager<ApplicationUser> signInManager,
         [Service] IConfiguration configuration,
-        [Service] RoleManager<IdentityRole> roleManager,
+        [Service] RoleManager<ApplicationRole> roleManager,
         
         VeranstalterCreateInput input)
     {
         if (!await roleManager.RoleExistsAsync("Veranstalter"))
         {
-            await roleManager.CreateAsync(new IdentityRole("Veranstalter"));
+            await roleManager.CreateAsync(new ApplicationRole("Veranstalter"));
         }
         
-        var user = new IdentityUser() { UserName = input.Email };
+        var user = new ApplicationUser() { UserName = input.Email };
         var claimsIdentity = GenerateClaimsIdentity();
 
         await using var transaction = await ticketingDbContext.Database.BeginTransactionAsync();
@@ -69,15 +69,15 @@ public class MutationVeranstalter
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Role, "Veranstalter"),
-                new(ClaimTypes.NameIdentifier, user.Id)
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             return new ClaimsIdentity(claims, "jwt");
         }
     }
     
     public async Task<VeranstalterPayload> LoginVeranstalter(
-        [Service] UserManager<IdentityUser> userManager,
-        [Service] SignInManager<IdentityUser> signInManager,
+        [Service] UserManager<ApplicationUser> userManager,
+        [Service] SignInManager<ApplicationUser> signInManager,
         [Service] IConfiguration configuration,
         
         VeranstalterLoginInput input)
@@ -93,7 +93,7 @@ public class MutationVeranstalter
         return veranstalterPayload;
         
         
-        async Task<IdentityUser> ValidateInputAndGetAspNetUser()
+        async Task<ApplicationUser> ValidateInputAndGetAspNetUser()
         {
             if (input.Email is null || input.Password is null)
             {

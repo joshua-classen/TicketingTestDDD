@@ -10,7 +10,7 @@ public static class VeranstalterRepository
 {
     public static async Task<VeranstalterUser> GetVeranstalter(
         TicketingDbContext ticketingDbContext,
-        UserManager<IdentityUser> userManager,
+        UserManager<ApplicationUser> userManager,
         
         ClaimsPrincipal claimsPrincipal)
     {

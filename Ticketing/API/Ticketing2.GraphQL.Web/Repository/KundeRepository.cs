@@ -11,7 +11,7 @@ public static class KundeRepository
 {
     public static async Task<KundeUser> GetKunde(
         TicketingDbContext ticketingDbContext, // hier später ITicketingDBContext machen für DP Injection
-        UserManager<IdentityUser> userManager,
+        UserManager<ApplicationUser> userManager,
 
         ClaimsPrincipal claimsPrincipal)
     {

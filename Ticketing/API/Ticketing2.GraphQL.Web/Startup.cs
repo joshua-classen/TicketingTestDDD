@@ -32,9 +32,22 @@ public class Startup
             .AddType<MutationVeranstaltung>()
             .AddType<MutationPurchaseTicket>();
         
-        services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<TicketingDbContext>()
-            .AddDefaultTokenProviders();
+        
+        
+        // https://learn.microsoft.com/de-de/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-8.0  // not working
+        // services.AddIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        //     .AddEntityFrameworkStores<TicketingDbContext>()
+        //     .AddDefaultTokenProviders();
+        
+        // https://bel62.wordpress.com/2021/07/12/change-identity-to-use-guid-in-in-ef-core-3-1/
+        services.AddIdentity<ApplicationUser, ApplicationRole>()
+            .AddEntityFrameworkStores<TicketingDbContext>();
+        
+        
+        // old with identity user
+        // services.AddIdentity<IdentityUser, IdentityRole>()
+        //     .AddEntityFrameworkStores<TicketingDbContext>()
+        //     .AddDefaultTokenProviders();
         
         // Konfiguriere JWT-Authentifizierung
         var jwtIssuer = _configuration.GetSection("Jwt:Issuer").Get<string>();
@@ -74,8 +87,8 @@ public class Startup
         var connectionString = _configuration.GetConnectionString("default");
         services.AddPooledDbContextFactory<TicketingDbContext>(o => o.UseSqlite(connectionString));
         
-        services.AddScoped<UserManager<IdentityUser>>();
-        services.AddScoped<SignInManager<IdentityUser>>();
+        services.AddScoped<UserManager<ApplicationUser>>();
+        services.AddScoped<SignInManager<ApplicationUser>>();
         services.AddScoped<TicketingDbContext>();
     }
 

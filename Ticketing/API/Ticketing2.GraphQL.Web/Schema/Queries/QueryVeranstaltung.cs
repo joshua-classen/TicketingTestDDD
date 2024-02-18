@@ -13,7 +13,7 @@ public class QueryVeranstaltung
     [Authorize(Roles = ["Veranstalter"])]
     public async Task<IEnumerable<Veranstaltung>> GetVeranstaltungen(
         [Service] TicketingDbContext ticketingDbContext,
-        [Service] UserManager<IdentityUser> userManager,
+        [Service] UserManager<ApplicationUser> userManager,
         ClaimsPrincipal claimsPrincipal)
     {
         var veranstalter = await VeranstalterRepository.GetVeranstalter(ticketingDbContext, userManager, claimsPrincipal);
