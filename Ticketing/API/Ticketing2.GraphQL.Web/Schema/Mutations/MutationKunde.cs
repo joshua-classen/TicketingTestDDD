@@ -30,7 +30,6 @@ public class MutationKunde
         var claimsIdentity = GenerateClaimsIdentity();
         
         await using var transaction = await ticketingDbContext.Database.BeginTransactionAsync();
-        try
         {
             var result = await userManager.CreateAsync(user, input.Password);
             if (!result.Succeeded)
@@ -40,7 +39,7 @@ public class MutationKunde
             }
 
             await userManager.AddToRoleAsync(user, "Kunde");
-            await userManager.AddClaimsAsync(user, claimsIdentity.Claims); 
+            await userManager.AddClaimsAsync(user, claimsIdentity.Claims);
             await signInManager.SignInAsync(user, isPersistent: false);
 
             var kunde = new KundeUser()
@@ -51,11 +50,6 @@ public class MutationKunde
             await ticketingDbContext.SaveChangesAsync();
             
             await transaction.CommitAsync();
-        }
-        catch (Exception e)
-        {
-            await transaction.RollbackAsync(); //todo: muss das hier sein? ich glaube nicht.
-            throw;
         }
         
         var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
@@ -73,8 +67,6 @@ public class MutationKunde
             return new ClaimsIdentity(claims, "jwt");
         }
     }
-    
-    
     
     public async Task<KundePayload> LoginKunde(
         [Service] UserManager<IdentityUser> userManager,

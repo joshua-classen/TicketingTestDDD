@@ -23,6 +23,7 @@ public class MutationVeranstaltung
         
         var veranstaltung = new Veranstaltung()
         {
+            // sollte ich hier die Id direkt mit angeben?
             Name = input.Name,
             TicketPriceEuroCent = 1999,
             MaxAmountTickets = 100
