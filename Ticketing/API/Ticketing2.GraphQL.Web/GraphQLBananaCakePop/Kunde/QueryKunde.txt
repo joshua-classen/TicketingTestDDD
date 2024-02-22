@@ -1,0 +1,13 @@
+query QueryKunde{
+  kundeUser{
+    id
+    purchasedTickets{
+        id
+        purchaseDate
+        # veranstaltung { # hier macht das Probleme
+        #    id
+        # }
+        
+    }
+  }
+}

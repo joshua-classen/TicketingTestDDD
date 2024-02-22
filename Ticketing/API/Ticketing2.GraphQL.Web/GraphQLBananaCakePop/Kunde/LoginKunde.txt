@@ -1,0 +1,10 @@
+mutation LoginKunde{
+  loginKunde(input: {
+    email: "kunde001@gmail.com"
+    password: "uniSiche23!"
+  })
+  {
+    email
+    jwtToken
+  }
+}

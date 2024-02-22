@@ -1,0 +1,9 @@
+query QueryVeranstaltungen{
+  veranstaltungen{
+    id
+    name
+    purchasedTickets{
+      id
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation CreateVeranstaltung{
+  createVeranstaltung(input: {
+    name: "meine erste party"
+  })
+  {
+    name
+    id
+  }
+}

@@ -1,0 +1,10 @@
+mutation CreateVeranstalter{
+  createVeranstalter(input: {
+    email: "veranstalter1001@gmail.com"
+    password: "useR1001!_"
+  })
+  {
+    email
+    jwtToken
+  }
+}
