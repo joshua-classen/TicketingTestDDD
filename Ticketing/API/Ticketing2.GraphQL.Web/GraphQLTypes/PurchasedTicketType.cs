@@ -10,7 +10,8 @@ public class PurchasedTicketType : ObjectType<PurchasedTicket>
 
         descriptor.BindFieldsExplicitly();
         descriptor.Field(purchasedTicket => purchasedTicket.Id);
-        descriptor.Field(purchasedTicket => purchasedTicket.KundeUser).Ignore();
+        descriptor.Field(purchasedTicket => purchasedTicket.KundeUser).Ignore(); // todo: das wird hier nicht ignoriert. Warum nicht?
+        // descriptor.Ignore(purchasedTicket => purchasedTicket.KundeUser).Ignore(); // todo: funktioniert auch nicht. Warum nicht?
         descriptor.Field(purchasedTicket => purchasedTicket.TicketNumber);
         descriptor.Field(purchasedTicket => purchasedTicket.PurchaseDate);
         descriptor.Field(purchasedTicket => purchasedTicket.TicketPriceEuroCent);
