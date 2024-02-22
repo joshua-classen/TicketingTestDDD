@@ -10,7 +10,7 @@ public class KundeUserType : ObjectType<KundeUser>
         
         descriptor.BindFieldsExplicitly();
         descriptor.Field(kundeUser => kundeUser.Id);
-        descriptor.Field(kundeUser => kundeUser.AspNetUserId).Ignore();
+        descriptor.Ignore(kundeUser => kundeUser.AspNetUserId);
         descriptor.Field(kundeUser => kundeUser.PurchasedTickets);
     }
 }

@@ -12,5 +12,4 @@ public class VeranstaltungType : ObjectType<Veranstaltung>
         descriptor.Field(veranstaltung => veranstaltung.Id);
         descriptor.Field(veranstaltung => veranstaltung.Name);
     }
-    
 }

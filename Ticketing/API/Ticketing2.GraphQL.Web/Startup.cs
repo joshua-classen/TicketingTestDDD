@@ -24,6 +24,9 @@ public class Startup
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstaltungType>()
+            .AddType<PurchasedTicketType>()
+            .AddType<KundeUserType>()
+            .AddType<VeranstalterUserType>()
             .AddQueryType(d => d.Name("Query"))
             .AddTypeExtension<QueryVeranstaltung>() // todo: Klären: Unterschied zu AddTypeExtension und AddType??
             .AddMutationType(d => d.Name("Mutation"))

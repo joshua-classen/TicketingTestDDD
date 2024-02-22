@@ -10,7 +10,7 @@ public class VeranstalterUserType : ObjectType<VeranstalterUser>
         
         descriptor.BindFieldsExplicitly();
         descriptor.Field(veranstalterUser => veranstalterUser.Id);
-        descriptor.Field(veranstalterUser => veranstalterUser.AspNetUserId).Ignore();
+        descriptor.Ignore(veranstalterUser => veranstalterUser.AspNetUserId);
         descriptor.Field(veranstalterUser => veranstalterUser.Veranstaltungen);
     }
 }
