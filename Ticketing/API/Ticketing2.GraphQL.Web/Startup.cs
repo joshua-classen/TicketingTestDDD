@@ -29,6 +29,7 @@ public class Startup
             .AddType<VeranstalterUserType>()
             .AddQueryType(d => d.Name("Query"))
             .AddTypeExtension<QueryVeranstaltung>() // todo: Klären: Unterschied zu AddTypeExtension und AddType??
+            .AddTypeExtension<QueryKundeUser>()
             .AddMutationType(d => d.Name("Mutation"))
             .AddType<MutationKunde>()
             .AddType<MutationVeranstalter>()

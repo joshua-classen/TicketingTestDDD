@@ -11,5 +11,6 @@ public class VeranstaltungType : ObjectType<Veranstaltung>
         descriptor.BindFieldsExplicitly();
         descriptor.Field(veranstaltung => veranstaltung.Id);
         descriptor.Field(veranstaltung => veranstaltung.Name);
+        descriptor.Field(veranstalung => veranstalung.PurchasedTickets);
     }
 }
