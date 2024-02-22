@@ -39,7 +39,7 @@ public class MutationVeranstalter
             }
 
             await userManager.AddToRoleAsync(user, "Veranstalter");
-            await userManager.AddClaimsAsync(user, claimsIdentity.Claims); 
+            await userManager.AddClaimsAsync(user, claimsIdentity.Claims);
             await signInManager.SignInAsync(user, isPersistent: false);
 
             var veranstalter = new VeranstalterUser()
