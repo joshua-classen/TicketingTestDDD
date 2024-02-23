@@ -33,7 +33,7 @@ public class MutationPurchaseTicket
             TicketPriceEuroCent = 1999,
             Veranstaltung = veranstaltung
         };
-        veranstaltung.PurchasedTickets.Add(pTicket); //BUG: Wird hier nicht gespeichert. // Problem liegt wahrscheinlich daran das PurchasedTicket keine Id hier bekommt.
+        veranstaltung.PurchasedTickets.Add(pTicket);
         kunde.PurchasedTickets.Add(pTicket);
         await ticketingDbContext.SaveChangesAsync();
 
