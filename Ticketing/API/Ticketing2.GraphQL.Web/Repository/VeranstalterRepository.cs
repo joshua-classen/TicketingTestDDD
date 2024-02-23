@@ -22,6 +22,7 @@ public static class VeranstalterRepository
         
         var veranstalter = ticketingDbContext.VeranstalterUser
             .Include(vu => vu.Veranstaltungen)
+            .ThenInclude(v => v.PurchasedTickets)
             .FirstOrDefault(vu => vu.AspNetUserId == aspNetUser.Id);
         if (veranstalter is null)
         {

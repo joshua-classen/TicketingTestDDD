@@ -1,4 +1,4 @@
-mutation {
+mutation PurchaseTicket {
   buyTicket(input: {
     veranstaltungId: "d2a79785-55cc-4f42-8260-9c5dcf033771"
   })
