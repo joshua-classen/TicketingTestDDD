@@ -186,7 +186,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    TicketPriceEuroCent = table.Column<uint>(type: "INTEGER", nullable: false),
+                    TicketPriceEuroCent = table.Column<int>(type: "INTEGER", nullable: false),
                     MaxAmountTickets = table.Column<uint>(type: "INTEGER", nullable: false),
                     VeranstalterUserId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },

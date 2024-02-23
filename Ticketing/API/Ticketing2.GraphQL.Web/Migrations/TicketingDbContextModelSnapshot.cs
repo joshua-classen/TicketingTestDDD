@@ -15,7 +15,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -282,7 +282,7 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<uint>("TicketPriceEuroCent")
+                    b.Property<int>("TicketPriceEuroCent")
                         .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("VeranstalterUserId")

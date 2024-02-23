@@ -4,7 +4,7 @@ public class Veranstaltung
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public uint TicketPriceEuroCent { get; set; }
+    public int TicketPriceEuroCent { get; set; }
     public uint MaxAmountTickets { get; set; }
     
     // Hier sollen die PurchasedTickets referenziert werden
