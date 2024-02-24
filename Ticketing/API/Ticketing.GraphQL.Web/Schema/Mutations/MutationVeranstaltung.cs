@@ -31,6 +31,5 @@ public class MutationVeranstaltung
         await ticketingDbContext.SaveChangesAsync();
         
         return veranstaltung;
-        // todo: sollte ich hier vll alle Veranstaltungen von dem Veranstalter zurückgeben?
     }
 }

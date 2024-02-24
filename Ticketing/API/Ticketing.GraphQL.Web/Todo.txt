@@ -1,16 +1,6 @@
+int64 als Id verwenden
+
+Okta auth einrichten
 
 
-Id alle auf GUID umstellen.
-
-
-
-BUG:
-Ein Ticket wird durch einen Kunden gekauft.
-Das KundenUser Objekt bekommt einen zusätzlichen Eintrag in der purchasedTickets Liste. 
-
-Das VeranstatlungsObjekte sollte das auch bekommen, aber bekommt es nicht.
-
-// das ist wieder ein Id Problem...
-
-
-uint graphql support einrichten
+Stripe Flow einrichten

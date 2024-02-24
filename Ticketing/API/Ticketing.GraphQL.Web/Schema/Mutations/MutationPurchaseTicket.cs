@@ -30,7 +30,7 @@ public class MutationPurchaseTicket
             KundeUser = kunde,
             TicketNumber = Convert.ToUInt32(veranstaltung.PurchasedTickets.Count) + 1,
             PurchaseDate = DateTime.Now,
-            TicketPriceEuroCent = 1999,
+            TicketPriceEuroCent = veranstaltung.TicketPriceEuroCent,
             Veranstaltung = veranstaltung
         };
         veranstaltung.PurchasedTickets.Add(pTicket);
