@@ -15,7 +15,6 @@ public class PurchasedTicketType : ObjectType<PurchasedTicket>
         descriptor.Field(purchasedTicket => purchasedTicket.PurchaseDate);
         descriptor.Field(purchasedTicket => purchasedTicket.TicketPriceEuroCent);
         
-        // todo: fix:
         descriptor.Field(purchasedTicket => purchasedTicket.Veranstaltung);
     }
 }

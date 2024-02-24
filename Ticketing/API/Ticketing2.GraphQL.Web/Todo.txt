@@ -11,3 +11,6 @@ Das KundenUser Objekt bekommt einen zusätzlichen Eintrag in der purchasedTicket
 Das VeranstatlungsObjekte sollte das auch bekommen, aber bekommt es nicht.
 
 // das ist wieder ein Id Problem...
+
+
+uint graphql support einrichten

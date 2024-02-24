@@ -20,13 +20,11 @@ public class MutationVeranstaltung
         VeranstaltungCreateInput input)
     {
         var veranstalter = await VeranstalterRepository.GetVeranstalter(ticketingDbContext, userManager, claimsPrincipal);
-        
         var veranstaltung = new Veranstaltung()
         {
-            // sollte ich hier die Id direkt mit angeben?
             Name = input.Name,
-            TicketPriceEuroCent = 1999,
-            MaxAmountTickets = 100
+            TicketPriceEuroCent = input.TicketPriceEuroCent,
+            MaxAmountTickets = input.MaxAmountTickets
         };
         
         veranstalter.Veranstaltungen.Add(veranstaltung);

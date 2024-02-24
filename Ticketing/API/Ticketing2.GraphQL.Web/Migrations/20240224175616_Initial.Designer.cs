@@ -11,7 +11,7 @@ using Ticketing2.GraphQL.Web.Services;
 namespace Ticketing2.GraphQL.Web.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    [Migration("20240223155207_Initial")]
+    [Migration("20240224175616_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -278,14 +278,14 @@ namespace Ticketing2.GraphQL.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<uint>("MaxAmountTickets")
+                    b.Property<int>("MaxAmountTickets")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TicketPriceEuroCent")
+                    b.Property<uint>("TicketPriceEuroCent")
                         .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("VeranstalterUserId")

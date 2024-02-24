@@ -4,8 +4,10 @@ public class PurchasedTicket
 {
     public Guid Id { get; set; } // muss glaube ich nicht public sein: https://learn.microsoft.com/en-us/ef/core/modeling/relationships 
     public KundeUser KundeUser { get; set; } = null!;
-    public int TicketNumber { get; set; }
+    [GraphQLType(typeof(UnsignedIntType))]
+    public uint TicketNumber { get; set; }
     public DateTime PurchaseDate { get; set; }
-    public int TicketPriceEuroCent { get; set; } // ich glaube der hat ein problem mit uint // hot chocolate hat ein problem mit uint. // todo: lösen
+    [GraphQLType(typeof(UnsignedIntType))]
+    public uint TicketPriceEuroCent { get; set; }
     public Veranstaltung Veranstaltung { get; set; } = null!;
 }
