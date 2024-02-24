@@ -11,9 +11,9 @@ public class Program
         
         using (IServiceScope scope = host.Services.CreateScope())
         {
-            var contextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<SchoolDbContext>>();
+            var contextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<TicketingDbContext>>();
             
-            using(SchoolDbContext context = contextFactory.CreateDbContext())
+            using(TicketingDbContext context = contextFactory.CreateDbContext())
             {
                 context.Database.Migrate();
             }
@@ -24,6 +24,7 @@ public class Program
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+            .ConfigureWebHostDefaults(webBuilder => webBuilder.
+                UseStartup<Startup>());
     }
 }
