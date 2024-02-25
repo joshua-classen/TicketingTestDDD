@@ -9,6 +9,7 @@ using Ticketing.GraphQL.Web.Repository;
 using Ticketing.GraphQL.Web.Schema.Mutations;
 using Ticketing.GraphQL.Web.Schema.Queries;
 using Ticketing.GraphQL.Web.Services;
+using Ticketing.GraphQL.Web.Stripe;
 
 namespace Ticketing.GraphQL.Web;
 
@@ -23,6 +24,8 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddControllers();
+        
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstaltungType>()
@@ -30,7 +33,7 @@ public class Startup
             .AddType<KundeUserType>()
             .AddType<VeranstalterUserType>()
             .AddQueryType(d => d.Name("Query"))
-            .AddTypeExtension<QueryVeranstaltung>() // todo: Klären: Unterschied zu AddTypeExtension und AddType??
+            .AddTypeExtension<QueryVeranstaltung>()
             .AddTypeExtension<QueryKundeUser>()
             .AddMutationType(d => d.Name("Mutation"))
             .AddType<MutationKunde>()
@@ -83,6 +86,10 @@ public class Startup
         var connectionString = _configuration.GetConnectionString("default");
         services.AddPooledDbContextFactory<TicketingDbContext>(o => o.UseSqlite(connectionString));
         
+        
+        //ok hier noch überarbeiten. Das wird nur initialisiert wenn es auch in dem rest gebraucht wird.
+        
+        services.AddSingleton<IStripeEnpointWebHookSecret, StripeEndpointWebHookSecretResolver>();
         services.AddScoped<UserManager<IdentityUser>>();
         services.AddScoped<SignInManager<IdentityUser>>();
         services.AddScoped<TicketingDbContext>();
@@ -98,11 +105,10 @@ public class Startup
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        
-        // app.UseWebSockets();
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllers();
             endpoints.MapGraphQL();
         });
     }

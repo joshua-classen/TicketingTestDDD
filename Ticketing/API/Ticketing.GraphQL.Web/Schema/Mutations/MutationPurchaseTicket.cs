@@ -23,8 +23,8 @@ public class MutationPurchaseTicket
         BuyTicketCreateInput input)
     {
         
-        
-        StripeService.StripeTest();
+        StripeService.StripePaymentIntent();
+        // StripeService.StripeTest();
         // stripe testing
         
         
