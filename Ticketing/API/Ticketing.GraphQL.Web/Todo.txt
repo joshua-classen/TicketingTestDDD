@@ -1,6 +1,28 @@
 int64 als Id verwenden
 
-Okta auth einrichten
+Okta auth einrichten (Prio 2)
 
 
-Stripe Flow einrichten
+Stripe Flow einrichten(Prio 1)
+
+
+
+
+
+
+Eigener AuthFlow:
+Der user möchte sich registrieren. Er muss ein captcha ausfüllen.
+Er gibt passwort und email ein und klickt auf registrieren.
+Er bekommt eine email zur bestätigung.
+Er bestätigt die email und wird auf die seite weitergeleitet.
+Er kann sich nun einloggen und wird auf die Startseite weitergeleitet.
+
+
+Wenn er sich ausloggen möchte, dann muss sein token ungültig werden.
+Wenn er sein passwort ändern möchte, dann müssen die token ungültig werden.
+Er kann sich dann neu anmelden.
+
+Wenn ein user sein passwort zurücksetzten möchte, dann muss er seine email eingeben und bekommt eine email mit passwort reset link.
+
+Wie kann ich den login vor angreifern schützen?
+- vll ratelimiter? 
