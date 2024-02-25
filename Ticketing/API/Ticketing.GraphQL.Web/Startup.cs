@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using Ticketing.GraphQL.Web.GraphQLTypes;
+using Ticketing.GraphQL.Web.Repository;
 using Ticketing.GraphQL.Web.Schema.Mutations;
 using Ticketing.GraphQL.Web.Schema.Queries;
 using Ticketing.GraphQL.Web.Services;
@@ -67,6 +69,9 @@ public class Startup
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
             };
         });
+        
+        StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("TicketingDDD_Stripe__StripeConfigurationApiKey")
+                                     ?? SecretsGetterRepository.GetStripeSkTestSecret().Result;
         
         // Konfiguriere Autorisierung mit Rollen
         services.AddAuthorization(options =>

@@ -5,6 +5,7 @@ using Ticketing.GraphQL.Web.DomainObjects;
 using Ticketing.GraphQL.Web.Inputs;
 using Ticketing.GraphQL.Web.Repository;
 using Ticketing.GraphQL.Web.Services;
+using Ticketing.GraphQL.Web.Stripe;
 
 namespace Ticketing.GraphQL.Web.Schema.Mutations;
 
@@ -21,6 +22,12 @@ public class MutationPurchaseTicket
         
         BuyTicketCreateInput input)
     {
+        
+        
+        StripeService.StripeTest();
+        // stripe testing
+        
+        
         var kunde = await KundeRepository.GetKunde(ticketingDbContext, userManager, claimsPrincipal);
         var veranstaltung = await VeranstaltungRepository.GetVeranstaltungById(ticketingDbContext, input.VeranstaltungId);
         await VeranstaltungRepository.EnsureVeranstaltungHasAtLeastOneMoreTicketToSell(ticketingDbContext, veranstaltung);

@@ -6,6 +6,8 @@ Okta auth einrichten (Prio 2)
 Stripe Flow einrichten(Prio 1)
 
 
+Umgebungsvariablen einrichten (Prio 1)
+
 
 
 
