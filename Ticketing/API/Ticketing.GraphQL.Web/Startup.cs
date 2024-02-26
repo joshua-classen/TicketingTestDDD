@@ -89,7 +89,7 @@ public class Startup
         
         //ok hier noch überarbeiten. Das wird nur initialisiert wenn es auch in dem rest gebraucht wird.
         
-        services.AddSingleton<IStripeEnpointWebHookSecret, StripeEndpointWebHookSecretResolver>();
+        services.AddSingleton<IStripeEnpointWebHookSecret>(new StripeEndpointWebHookSecretResolver());
         services.AddScoped<UserManager<IdentityUser>>();
         services.AddScoped<SignInManager<IdentityUser>>();
         services.AddScoped<TicketingDbContext>();

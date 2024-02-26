@@ -1,11 +1,7 @@
-using System;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Stripe;
-using Ticketing.GraphQL.Web.Stripe;
 
-namespace StripeExampleApi.Controllers;
+namespace Ticketing.GraphQL.Web.Stripe;
 
 /// <summary>
 /// Instruction:
@@ -21,30 +17,17 @@ namespace StripeExampleApi.Controllers;
 
 
 // das hier ist ein seperater endpunkt der von stripe aufgerufen wird um mir infos über die zahlung zu geben.
-
 // ich kann hier später bestimmt noch einstellen das er nur anfragen von stripe akzeptiert.
 [Route("webhook")]
 [ApiController]
-public class WebhookController : ControllerBase
+public class WebhookController(IStripeEnpointWebHookSecret stripeEnpointWebHookSecret) : ControllerBase
 {
-    
-    // wie kann ich hier objekte injecten?
-    public WebhookController(IStripeEnpointWebHookSecret stripeEnpointWebHookSecret)
-    {
-        _endpointSecret = stripeEnpointWebHookSecret.Secret;
-    }
-    
-    
-    // This is your Stripe CLI webhook secret for testing your endpoint locally.
-    
-    // das ist hier noch blöd. Ich möchte das die variable schon in startup geladen wird.
-    private readonly string _endpointSecret;// = Environment.GetEnvironmentVariable("TicketingDDD_Stripe__StripeWebhookSecretTestMode_Localhost"); 
+    private readonly string _endpointSecret = stripeEnpointWebHookSecret.Secret;
 
+    // This is your Stripe CLI webhook secret for testing your endpoint locally.
     [HttpPost]
     public async Task<IActionResult> Index()
     {
-        Console.WriteLine("Im WebhookController");
-        Console.WriteLine(_endpointSecret);
         var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
         try
         {
