@@ -1,3 +1,6 @@
+lizenz muss rein. 
+
+
 int64 als Id verwenden
 
 Okta auth einrichten (Prio 2)

@@ -25,7 +25,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        
+
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstaltungType>()
@@ -39,7 +39,8 @@ public class Startup
             .AddType<MutationKunde>()
             .AddType<MutationVeranstalter>()
             .AddType<MutationVeranstaltung>()
-            .AddType<MutationPurchaseTicket>();
+            .AddType<MutationPurchaseTicket>()
+            .AddType<MutationPurchaseTicketPaymentIntent>();
         
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<TicketingDbContext>()

@@ -4,9 +4,7 @@ namespace Ticketing.GraphQL.Web.Stripe;
 
 public static class StripeService
 {
-
-
-    public static void StripePaymentIntent()
+    public static string StripeGenericPaymentIntent()
     {
         var options = new PaymentIntentCreateOptions
         {
@@ -20,16 +18,14 @@ public static class StripeService
         var service = new PaymentIntentService();
         var myPaymentIntent = service.Create(options);
         // sollte ich das PaymentIntent in meiner DB speichern?
-        
-        
-        var abc = "";
-        // Im PaymentIntent ist ein Client-Geheimnis enthalten
 
 
+        var clientSecret = myPaymentIntent.ClientSecret;
+        return clientSecret;
+    
         // dieses client geheimnis wird dann im frontend benutzt, um die zahlung zu bestätigen. Der Client fragt das über meine api an. Etwa so
-        // var intent = myPaymentIntent;// ... Fetch or create the PaymentIntent
-        // return Json(new {client_secret = intent.ClientSecret});
 
+        
         // client:
         // Und dann rufen Sie das Client-Geheimnis mit JavaScript auf der Client-Seite ab:
         // enthält einen iFrame
@@ -40,16 +36,13 @@ public static class StripeService
         // })();
 
         
-        
         // Frage: Wie erfahre ich jetzt ob der Kunde die Zahlung erfolgreich abgeschlossen hat?
         // https://docs.stripe.com/payments/payment-intents/verifying-status#webhooks
-        //Nachdem der Client die Zahlung bestätigt hat, wird empfohlen, dass
-        //Ihr Server Webhooks überwacht, um zu erkennen, wann die Zahlung erfolgreich abgeschlossen wird oder fehlschlägt.
-        
+        // Nachdem der Client die Zahlung bestätigt hat, wird empfohlen, dass
+        // Ihr Server Webhooks überwacht, um zu erkennen, wann die Zahlung erfolgreich abgeschlossen wird oder fehlschlägt.
+
         // Um ein Webhook-Ereignis zu verarbeiten, erstellen Sie eine Route auf Ihrem Server
-        // und konfigurieren Sie einen entsprechenden Webhook-Endpoint im Dashboard. S
-        
-        
+        // und konfigurieren Sie einen entsprechenden Webhook-Endpoint im Dashboard. 
     }
     
     

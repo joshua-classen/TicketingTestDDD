@@ -14,6 +14,7 @@ namespace Ticketing.GraphQL.Web.Schema.Mutations;
 public class MutationPurchaseTicket
 {
 
+    [GraphQLDeprecated("Use MutationPurchaseTicketPaymentIntent instead.")]
     [Authorize(Roles = ["Kunde"])]
     public async Task<PurchasedTicket> BuyTicket(
         [Service] TicketingDbContext ticketingDbContext,
@@ -23,14 +24,14 @@ public class MutationPurchaseTicket
         BuyTicketCreateInput input)
     {
         
-        StripeService.StripePaymentIntent();
+        // StripeService.StripeGenericPaymentIntent();
         // StripeService.StripeTest();
         // stripe testing
         
         
         var kunde = await KundeRepository.GetKunde(ticketingDbContext, userManager, claimsPrincipal);
         var veranstaltung = await VeranstaltungRepository.GetVeranstaltungById(ticketingDbContext, input.VeranstaltungId);
-        await VeranstaltungRepository.EnsureVeranstaltungHasAtLeastOneMoreTicketToSell(ticketingDbContext, veranstaltung);
+        await VeranstaltungRepository.EnsureVeranstaltungHasAtLeastOneMoreTicketToSell(ticketingDbContext, veranstaltung); // nicht thread safe?
         
         var pTicket = new PurchasedTicket()
         {
