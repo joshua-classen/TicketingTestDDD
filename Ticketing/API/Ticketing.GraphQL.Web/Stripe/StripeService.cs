@@ -8,7 +8,7 @@ public static class StripeService
     {
         var options = new PaymentIntentCreateOptions
         {
-            Amount = 1099,
+            Amount = 1199,
             Currency = "eur",
             AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
             {
