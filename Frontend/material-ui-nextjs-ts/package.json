@@ -16,6 +16,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@mui/material-nextjs": "latest",
+    "@mui/x-charts": "^6.19.5",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
