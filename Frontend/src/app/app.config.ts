@@ -10,7 +10,6 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { provideMomentDatetimeAdapter } from '@ng-matero/extensions-moment-adapter';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
@@ -19,9 +18,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { BASE_URL, appInitializerProviders, httpInterceptorProviders } from '@core';
 import { environment } from '@env/environment';
 import { PaginatorI18nService } from '@shared';
-import { InMemDataService } from '@shared/in-mem/in-mem-data.service';
 import { routes } from './app.routes';
 import { FormlyConfigModule } from './formly-config.module';
+
+import { LoginService } from '@core/authentication/login.service';
+import { FakeLoginService } from './fake-login.service';
 
 // Required for AOT compilation
 export function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -49,20 +50,21 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient],
         },
       }),
-      FormlyConfigModule.forRoot(),
-      // 👇 ❌ This is only used for demo purpose, remove it in the realworld application
-      InMemoryWebApiModule.forRoot(InMemDataService, {
-        dataEncapsulation: false,
-        passThruUnknownUrl: true,
-      })
+      FormlyConfigModule.forRoot()
     ),
     { provide: BASE_URL, useValue: environment.baseUrl },
+    // ==================================================
+    // 👇 ❌ Remove it in the realworld application
+    //
+    { provide: LoginService, useClass: FakeLoginService },
+    //
+    // ==================================================
     httpInterceptorProviders,
     appInitializerProviders,
     {
       provide: MatPaginatorIntl,
-      useFactory: (paginatorI18nSrv: PaginatorI18nService) => paginatorI18nSrv.getPaginatorIntl(),
       deps: [PaginatorI18nService],
+      useFactory: (paginatorI18nSrv: PaginatorI18nService) => paginatorI18nSrv.getPaginatorIntl(),
     },
     {
       provide: MAT_DATE_LOCALE,
