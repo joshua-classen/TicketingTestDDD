@@ -1,0 +1,10 @@
+Tabelle anzeigen lassen mit allen derzeitigen events
+
+Muss es mit pagination sein?
+  Nein -> Veranstalter hat normalerweise nicht so viele Events
+  Ja -> als Feature
+
+
+Veranstaltung muss editierbar sein
+
+Veranstaltungen müssen vom graphql Backend geladen werden.
