@@ -11,6 +11,7 @@
                  (openedChange)="onSidenavOpenedChange($event)"
                  (closedStart)="onSidenavClosedStart()">
       <app-sidebar [showToggle]="!isOver"
+                   [showUser]="false"
                    (toggleCollapsed)="toggleCollapsed()"
                    [toggleChecked]="!!options.sidenavCollapsed">
       </app-sidebar>

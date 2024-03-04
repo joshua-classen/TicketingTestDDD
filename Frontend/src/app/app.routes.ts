@@ -8,6 +8,7 @@ import { Error404Component } from './routes/sessions/404.component';
 import { Error500Component } from './routes/sessions/500.component';
 import { LoginComponent } from './routes/sessions/login/login.component';
 import { RegisterComponent } from './routes/sessions/register/register.component';
+import { VeranstalterveranstaltungenComponent } from './routes/veranstalterveranstaltungen/veranstalterveranstaltungen.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,11 @@ export const routes: Routes = [
       { path: '403', component: Error403Component },
       { path: '404', component: Error404Component },
       { path: '500', component: Error500Component },
+      { path: 'veranstalterveranstaltungen', component: VeranstalterveranstaltungenComponent },
+      {
+        path: 'profile',
+        loadChildren: () => import('./routes/profile/profile.routes').then(m => m.routes),
+      },
     ],
   },
   {
