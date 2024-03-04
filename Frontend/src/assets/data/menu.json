@@ -15,6 +15,12 @@
       "name": "veranstalterveranstaltungen",
       "type": "link",
       "icon": "question_answer"
+    },
+    {
+      "route": "veranstaltung-anlegen",
+      "name": "veranstaltung-anlegen",
+      "type": "link",
+      "icon": "question_answer"
     }
   ]
 }

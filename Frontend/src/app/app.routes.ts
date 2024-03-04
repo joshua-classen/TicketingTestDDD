@@ -10,6 +10,7 @@ import { LoginComponent } from './routes/sessions/login/login.component';
 import { RegisterComponent } from './routes/sessions/register/register.component';
 import { VeranstalterveranstaltungenComponent } from './routes/veranstalterveranstaltungen/veranstalterveranstaltungen.component';
 import { TablesKitchenSinkComponent } from './routes/veranstalterveranstaltungen/kitchen-sink/kitchen-sink.component';
+import { VeranstaltungAnlegenComponent } from './routes/veranstaltung-anlegen/veranstalterveranstaltungen.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: '404', component: Error404Component },
       { path: '500', component: Error500Component },
       { path: 'veranstalterveranstaltungen', component: TablesKitchenSinkComponent },
+      { path: 'veranstaltung-anlegen', component: VeranstaltungAnlegenComponent },
       {
         path: 'profile',
         loadChildren: () => import('./routes/profile/profile.routes').then(m => m.routes),
