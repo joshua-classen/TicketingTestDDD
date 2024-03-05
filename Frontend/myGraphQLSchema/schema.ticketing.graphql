@@ -1,0 +1,105 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type KundePayload {
+    email: String!
+    jwtToken: String!
+}
+
+type KundeUser {
+    id: UUID!
+    purchasedTickets: [PurchasedTicket!]!
+}
+
+type Mutation {
+    buyTicket(input: BuyTicketCreateInput!): PurchasedTicket! @deprecated(reason: "Use MutationPurchaseTicketPaymentIntent instead.")
+    createKunde(input: KundeCreateInput!): KundePayload!
+    createPaymentIntent(input: BuyTicketCreateInput!): StripeClientSecretPayload!
+    createVeranstalter(input: VeranstalterCreateInput!): VeranstalterPayload!
+    createVeranstaltung(input: VeranstaltungCreateInput!): Veranstaltung!
+    loginKunde(input: KundeLoginInput!): KundePayload!
+    loginVeranstalter(input: VeranstalterLoginInput!): VeranstalterPayload!
+}
+
+type PurchasedTicket {
+    id: UUID!
+    purchaseDate: DateTime!
+    ticketNumber: UnsignedInt
+    ticketPriceEuroCent: UnsignedInt
+    veranstaltung: Veranstaltung!
+}
+
+type Query {
+    kundeUser: KundeUser!
+    veranstaltungen: [Veranstaltung!]!
+}
+
+type StripeClientSecretPayload {
+    clientSecret: String!
+}
+
+type VeranstalterPayload {
+    email: String!
+    jwtToken: String!
+}
+
+type VeranstalterUser {
+    id: UUID!
+    veranstaltungen: [Veranstaltung!]!
+}
+
+type Veranstaltung {
+    id: UUID!
+    maxAmountTickets: UnsignedInt
+    name: String!
+    purchasedTickets: [PurchasedTicket!]!
+    ticketPriceEuroCent: UnsignedInt
+}
+
+enum ApplyPolicy {
+    AFTER_RESOLVER
+    BEFORE_RESOLVER
+    VALIDATION
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+scalar UUID
+
+"The UnsignedInt scalar type represents a unsigned 32-bit numeric non-fractional value greater than or equal to 0."
+scalar UnsignedInt
+
+input BuyTicketCreateInput {
+    veranstaltungId: UUID!
+}
+
+input KundeCreateInput {
+    email: String!
+    password: String!
+}
+
+input KundeLoginInput {
+    email: String!
+    password: String!
+}
+
+input VeranstalterCreateInput {
+    email: String!
+    password: String!
+}
+
+input VeranstalterLoginInput {
+    email: String!
+    password: String!
+}
+
+input VeranstaltungCreateInput {
+    maxAmountTickets: UnsignedInt!
+    name: String!
+    ticketPriceEuroCent: UnsignedInt!
+}

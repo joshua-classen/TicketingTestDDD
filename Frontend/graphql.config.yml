@@ -1,0 +1,9 @@
+projects:
+  Ticketing:
+    schema: ./myGraphQLSchema/schema.ticketing.graphql
+    include: '**/*.graphql'
+    extensions:
+      endpoints:
+        ticketservice:
+          url: http://localhost:5108/graphql/
+          introspect: true
