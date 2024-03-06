@@ -3,13 +3,10 @@ import { PageHeaderComponent } from '@shared';
 import { gql } from '../../../__generated__/';
 
 import { Subscription } from 'rxjs';
-import { Apollo } from 'apollo-angular';
 
 
 
-// https://the-guild.dev/graphql/apollo-angular/docs/data/queries
-// https://www.apollographql.com/tutorials/lift-off-part1/09-defining-a-query
-
+//todo: einfache query im backend erstellen.
 
 
 const VERANSTALTUNG = gql(`
@@ -28,25 +25,38 @@ const VERANSTALTUNG = gql(`
   imports: [PageHeaderComponent]
 })
 export class VeranstaltungAnlegenComponent implements OnInit, OnDestroy {
-  loading: boolean = false; //todo: hier muss ich das initialisieren. Wie kann ich das auch uninitialized lassen?
-  posts: any;
 
-  private querySubscription: Subscription;
+  constructor() { }
 
-  constructor(private apollo: Apollo) {}
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit() {
-    this.querySubscription = this.apollo
-      .watchQuery<any>({
-        query: VERANSTALTUNG,
-      })
-      .valueChanges.subscribe(({ data, loading }) => {
-        this.loading = loading;
-        this.posts = data.posts;
-      });
-  }
-
-  ngOnDestroy() {
-    this.querySubscription.unsubscribe();
   }
 }
+
+// import { Component, OnInit, OnDestroy } from '@angular/core';
+// // import { MyFeedGQL, MyFeedQuery } from './graphql'; // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript-apollo-angular ganz unten
+// // funktioniert nicht.
+//
+// // BE SURE TO USE Observable from rxjs and not from @apollo/client/core when using map
+// import { Observable } from 'rxjs'
+// import { map } from 'rxjs/operators'
+//
+// @Component({
+//   selector: 'feed',
+//   template: `
+//     <h1>Feed:</h1>
+//     <ul>
+//       <li *ngFor="let item of feed | async">{{ item.id }}</li>
+//     </ul>
+//   `
+// })
+// export class FeedComponent {
+//   feed: Observable<MyFeedQuery['feed']>
+//
+//   constructor(feedGQL: MyFeedGQL) {
+//     this.feed = feedGQL.watch().valueChanges.pipe(map(result => result.data.feed))
+//   }
+// }
