@@ -23,6 +23,7 @@ import { FormlyConfigModule } from './formly-config.module';
 
 import { LoginService } from '@core/authentication/login.service';
 import { FakeLoginService } from './fake-login.service';
+import { graphqlProvider } from './graphql.provider';
 
 // Required for AOT compilation
 export function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -106,6 +107,6 @@ export const appConfig: ApplicationConfig = {
         monthYearA11yLabel: 'MMMM YYYY',
         popupHeaderDateLabel: 'MMM DD, ddd',
       },
-    }),
+    }), provideHttpClient(), graphqlProvider,
   ],
 };

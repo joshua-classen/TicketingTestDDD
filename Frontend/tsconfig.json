@@ -17,7 +17,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["ES2022", "dom"],
+    "lib": ["ES2022", "dom", "esnext.asynciterable"],
     "paths": {
       "@core": ["app/core"],
       "@core/*": ["app/core/*"],
@@ -31,7 +31,8 @@
       "@env/*": ["environments/*"]
     },
     "useDefineForClassFields": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
