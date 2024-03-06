@@ -1,6 +1,6 @@
 projects:
   Ticketing:
-    schema: ./myGraphQLSchema/schema.ticketing.graphql
+    schema: ./schema.ticketing.graphql
     include: '**/*.graphql'
     extensions:
       endpoints:

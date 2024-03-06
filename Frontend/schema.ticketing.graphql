@@ -35,6 +35,7 @@ type PurchasedTicket {
 
 type Query {
   kundeUser: KundeUser!
+  veranstaltungDummy: Veranstaltung!
   veranstaltungen: [Veranstaltung!]!
 }
 

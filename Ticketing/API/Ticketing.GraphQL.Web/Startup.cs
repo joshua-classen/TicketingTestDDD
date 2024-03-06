@@ -34,6 +34,7 @@ public class Startup
             .AddType<VeranstalterUserType>()
             .AddQueryType(d => d.Name("Query"))
             .AddTypeExtension<QueryVeranstaltung>()
+            .AddTypeExtension<QueryVeranstaltungDummy>() //todo: delete
             .AddTypeExtension<QueryKundeUser>()
             .AddMutationType(d => d.Name("Mutation"))
             .AddType<MutationKunde>()
