@@ -25,7 +25,17 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-
+        
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+        });
+        
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddType<VeranstaltungType>()
@@ -104,6 +114,9 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        app.UseCors("AllowFrontend"); // funktioniert.
+        // app.UseCors(); // funktioniert nicht
+        
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
