@@ -21,16 +21,11 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   schema: 'http://localhost:5108/graphql/',
-  documents: ['src/**/*.ts'], //graphql dateien geht nicht. Wieso nicht? Das ist doch der Sinn die query in .graphql dateien abzuspeichern?
-  // der will hier ts dateien:Plugin "typescript-apollo-angular" validation failed: Plugin "apollo-angular" requires extension to be ".ts"!
-
-    generates: {
-    './src/__generated__/': {
+  documents: ['src/**/*.graphql'],
+  generates: {
+    './graphql/generated.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-apollo-angular']
     }
   }
 };
 export default config;
-
-
-// todo: mein graphql schema in root ordner erstellen lassen
