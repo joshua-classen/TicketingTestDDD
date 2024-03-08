@@ -8,6 +8,10 @@ import { Token, User } from './interface';
 @Injectable({
   providedIn: 'root',
 })
+
+
+
+// wieso schreibt man das nicht als Interface, z.B. ILoginService?
 export class LoginService {
   constructor(protected http: HttpClient) {}
 

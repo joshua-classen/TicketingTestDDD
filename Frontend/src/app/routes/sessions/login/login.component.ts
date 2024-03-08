@@ -61,6 +61,9 @@ export class LoginComponent {
   login() {
     this.isSubmitting = true;
 
+    // Das token wird im localStorage gespeichert;
+    // Todo: Analyse ob das sicher und sinnvoll ist. Sollte man das vll im cookie speichern?
+
     this.auth
       .login(this.username.value, this.password.value, this.rememberMe.value)
       .pipe(filter(authenticated => authenticated))

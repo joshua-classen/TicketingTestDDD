@@ -10,6 +10,11 @@ import { map } from 'rxjs/operators';
 export class FakeLoginService extends LoginService {
   private token = { access_token: 'MW56YjMyOUAxNjMuY29tWm9uZ2Jpbg==', token_type: 'bearer' };
 
+
+
+
+  // Wieso wird diese Methode ausgeführt? Das liegt wahrscheinlich an dem
+  // { provide: LoginService, useClass: FakeLoginService }, aus der app.config.ts
   login() {
     return of(this.token);
   }
