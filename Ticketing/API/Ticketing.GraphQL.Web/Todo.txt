@@ -31,3 +31,12 @@ Wenn ein user sein passwort zurücksetzten möchte, dann muss er seine email ein
 
 Wie kann ich den login vor angreifern schützen?
 - vll ratelimiter? 
+
+
+
+
+User einloggen
+
+
+
+BUG: Wenn der User im Frontend von "Neue Veranstaltung" auf "My Events" klickt, dann wird nicht gewechselt.
