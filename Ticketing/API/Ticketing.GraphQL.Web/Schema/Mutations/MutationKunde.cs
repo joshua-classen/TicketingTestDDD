@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Ticketing.GraphQL.Web.DomainObjects;
 using Ticketing.GraphQL.Web.Inputs;
@@ -52,8 +54,9 @@ public class MutationKunde
             await transaction.CommitAsync();
         }
         
-        var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var kundePayload = new KundePayload(input.Email, token);
+        //todo: das mit dem token entfernen.
+        //todo: direkt das cookie senden
+        var kundePayload = new KundePayload(input.Email);
         return kundePayload;
         
         
@@ -71,7 +74,8 @@ public class MutationKunde
     public async Task<KundePayload> LoginKunde(
         [Service] UserManager<IdentityUser> userManager,
         [Service] SignInManager<IdentityUser> signInManager,
-        [Service] IConfiguration configuration,
+        // [Service] IConfiguration configuration,
+        [Service] IHttpContextAccessor httpContextAccessor,
         
         KundeLoginInput input)
     {
@@ -79,10 +83,21 @@ public class MutationKunde
         await LoginUser();
         
         var claims = await userManager.GetClaimsAsync(user);
-        var claimsIdentity = new ClaimsIdentity(claims, "jwt");
+        var claimsIdentity = new ClaimsIdentity(claims, "login"); //todo: hier noch recherchieren ob das sinnvoll ist mit dem "login" string
         
-        var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var kundePayload = new KundePayload(input.Email, token); // todo: wie speichert man das im cookie ab?
+        
+        // Authentifizierungscookie erstellen
+        var authProperties = new AuthenticationProperties
+        {
+            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),  // Cookie-Ablaufzeit festlegen, todo: Frage: Wieso soll ich das hier nochmal festlegen
+                                                            // wenn ich das schon in startup.cs gemacht habe?
+            IsPersistent = true // Cookie persistent machen; Todo: Noch kläre wie sinnvoll das ist. 
+        };
+        
+        var authenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        await httpContextAccessor.HttpContext.SignInAsync(authenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties); // todo: warnung wegkriegen
+        
+        var kundePayload = new KundePayload(input.Email);
         return kundePayload;
         
         

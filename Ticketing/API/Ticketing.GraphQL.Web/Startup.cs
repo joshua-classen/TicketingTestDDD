@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,23 +68,40 @@ public class Startup
         
         services.AddAuthentication(options =>
         {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        }).AddCookie(options =>
         {
-            options.RequireHttpsMetadata = false;
-            options.SaveToken = true;
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtIssuer,
-                ValidAudience = jwtIssuer,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-            };
+            options.Cookie.Name = "myAuthCookie";
+            options.Cookie.HttpOnly = true;
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(15); // Set your desired expiration time
+            options.SlidingExpiration = true;
+            options.LoginPath = "/auth/login"; // Set your login path
+            options.LogoutPath = "/auth/login"; // Set your logout path
+            // Add any other necessary options
         });
+        
+        
+        // services.AddAuthentication(options =>
+        // {
+        //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        // }).AddJwtBearer(options =>
+        // {
+        //     options.RequireHttpsMetadata = false;
+        //     options.SaveToken = true;
+        //     options.TokenValidationParameters = new TokenValidationParameters
+        //     {
+        //         ValidateIssuer = true,
+        //         ValidateAudience = true,
+        //         ValidateLifetime = true,
+        //         ValidateIssuerSigningKey = true,
+        //         ValidIssuer = jwtIssuer,
+        //         ValidAudience = jwtIssuer,
+        //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        //     };
+        // });
         
         StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("TicketingDDD_Stripe__StripeConfigurationApiKey")
                                      ?? SecretsGetterRepository.GetStripeSkTestSecret().Result;

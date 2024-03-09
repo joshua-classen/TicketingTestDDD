@@ -1,3 +1,15 @@
+Cookie:
+Set-Cookie:token=myvalue;SameSite=Strict;Secure;HttpOnly und noch maxage
+
+
+httpOnly flag
+15 min validity of cookie
+Only store encrypted token in cookie
+SameSite=Strict
+Finally, when using refresh tokens, make sure to store them in their own cookies.
+
+
+
 lizenz muss rein. 
 
 

@@ -14,6 +14,7 @@ public class MutationVeranstaltung
     [Authorize(Roles = ["Veranstalter"])]
     public async Task<Veranstaltung> CreateVeranstaltung(
         [Service] TicketingDbContext ticketingDbContext,
+        [Service] IHttpContextAccessor httpContextAccessor,
         [Service] UserManager<IdentityUser> userManager,
         ClaimsPrincipal claimsPrincipal,
         

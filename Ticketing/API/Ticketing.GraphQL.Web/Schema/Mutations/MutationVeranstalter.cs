@@ -1,4 +1,7 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Ticketing.GraphQL.Web.DomainObjects;
 using Ticketing.GraphQL.Web.Inputs;
@@ -53,8 +56,9 @@ public class MutationVeranstalter
             await transaction.CommitAsync();
         }
         
-        var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var veranstalterPayload = new VeranstalterPayload(input.Email, token);
+        
+        //todo: direkt das cookie senden
+        var veranstalterPayload = new VeranstalterPayload(input.Email);
         return veranstalterPayload;
         
         
@@ -72,7 +76,8 @@ public class MutationVeranstalter
     public async Task<VeranstalterPayload> LoginVeranstalter(
         [Service] UserManager<IdentityUser> userManager,
         [Service] SignInManager<IdentityUser> signInManager,
-        [Service] IConfiguration configuration,
+        // [Service] IConfiguration configuration,
+        [Service] IHttpContextAccessor httpContextAccessor,
         
         VeranstalterLoginInput input)
     {
@@ -80,11 +85,26 @@ public class MutationVeranstalter
         await LoginUser();
         
         var claims = await userManager.GetClaimsAsync(user);
-        var claimsIdentity = new ClaimsIdentity(claims, "jwt");
+        var claimsIdentity = new ClaimsIdentity(claims, "login"); 
         
-        var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
-        var veranstalterPayload = new VeranstalterPayload(input.Email, token); // todo: wie speichert man das im cookie ab?
-        return veranstalterPayload;
+        //todo: JwtTokenGenerator deprecated machen bzw. löschen
+        
+        // var token = JwtTokenGenerator.GenerateToken(configuration, claimsIdentity);
+        // Authentifizierungscookie erstellen
+        var authProperties = new AuthenticationProperties
+        {
+            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1), // Cookie-Ablaufzeit festlegen, todo: Frage: Wieso soll ich das hier nochmal festlegen
+                                                           // wenn ich das schon in startup.cs gemacht habe?
+            IsPersistent = true // Cookie persistent machen; Todo: Noch kläre wie sinnvoll das ist. 
+        };
+        
+        var authenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        await httpContextAccessor.HttpContext.SignInAsync(authenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties); // todo: warnung wegkriegen
+        
+        
+        // Bei REST-APIs würde ich hier ein 200 OK zurückgeben.
+        // was mache ich aber bei einer graphql Mutation?
+        return new VeranstalterPayload(input.Email);
         
         
         async Task<IdentityUser> ValidateInputAndGetAspNetUser()
@@ -99,7 +119,7 @@ public class MutationVeranstalter
             {
                 throw new Exception("Benutzer nicht gefunden.");
             }
-
+        
             return myUser;
         }
         async Task LoginUser()
