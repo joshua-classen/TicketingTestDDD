@@ -24,6 +24,7 @@ import { FormlyConfigModule } from './formly-config.module';
 import { LoginService } from '@core/authentication/login.service';
 import { FakeLoginService } from './fake-login.service';
 import { graphqlProvider } from './graphql.provider';
+import { TicketVeranstalterLoginService } from './ticket-veranstalter-login.service';
 
 // Required for AOT compilation
 export function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -57,7 +58,7 @@ export const appConfig: ApplicationConfig = {
     // ==================================================
     // 👇 ❌ Remove it in the realworld application
     //
-    { provide: LoginService, useClass: FakeLoginService },
+    { provide: LoginService, useClass: TicketVeranstalterLoginService },
     //
     // ==================================================
     httpInterceptorProviders,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, iif, merge, of } from 'rxjs';
+import { BehaviorSubject, iif, merge, Observable, of } from 'rxjs';
 import { catchError, map, share, switchMap, tap } from 'rxjs/operators';
 import { filterObject, isEmptyObject } from './helpers';
 import { User } from './interface';
@@ -33,13 +33,18 @@ export class AuthService {
   }
 
   check() {
-    return this.tokenService.valid();
+    return true; //todo: überarbeiten...
+    // return this.tokenService.valid();
   }
 
-  login(username: string, password: string, rememberMe = false) {
+  login(username: string, password: string, rememberMe = false) : Observable<boolean> {
     return this.loginService.login(username, password, rememberMe).pipe(
-      tap(token => this.tokenService.set(token)),
-      map(() => this.check())
+      map((result: string) => {
+        if (result && result.trim() !== ''){ // todo: aus irgendeinem grund wird das hier nicht ausgeführt.
+          return true;
+        }
+        return false;
+      })
     );
   }
 

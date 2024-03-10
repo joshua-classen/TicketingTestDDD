@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
  * You should delete this file in the real APP.
  */
 @Injectable()
-export class FakeLoginService extends LoginService {
+export class FakeLoginService /*extends LoginService*/ {
   private token = { access_token: 'MW56YjMyOUAxNjMuY29tWm9uZ2Jpbg==', token_type: 'bearer' };
 
 
@@ -31,9 +31,10 @@ export class FakeLoginService extends LoginService {
     return of(admin);
   }
 
-  menu() {
-    return this.http
-      .get<{ menu: Menu[] }>('assets/data/menu.json?_t=' + Date.now())
-      .pipe(map(res => res.menu));
-  }
+
+  // menu() {
+  //   return this.http
+  //     .get<{ menu: Menu[] }>('assets/data/menu.json?_t=' + Date.now())
+  //     .pipe(map(res => res.menu));
+  // }
 }

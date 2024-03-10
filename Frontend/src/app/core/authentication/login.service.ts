@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Menu } from '@core';
 import { Token, User } from './interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,8 @@ import { Token, User } from './interface';
 export class LoginService {
   constructor(protected http: HttpClient) {}
 
-  login(username: string, password: string, rememberMe = false) {
-    return this.http.post<Token>('/auth/login', { username, password, rememberMe });
+  login(username: string, password: string, rememberMe = false): Observable<string> {
+    return of('');
   }
 
   refresh(params: Record<string, any>) {

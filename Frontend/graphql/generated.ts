@@ -45,7 +45,6 @@ export type KundeLoginInput = {
 export type KundePayload = {
   __typename?: 'KundePayload';
   email: Scalars['String']['output'];
-  jwtToken: Scalars['String']['output'];
 };
 
 export type KundeUser = {
@@ -135,7 +134,6 @@ export type VeranstalterLoginInput = {
 export type VeranstalterPayload = {
   __typename?: 'VeranstalterPayload';
   email: Scalars['String']['output'];
-  jwtToken: Scalars['String']['output'];
 };
 
 export type VeranstalterUser = {
@@ -159,11 +157,36 @@ export type VeranstaltungCreateInput = {
   ticketPriceEuroCent: Scalars['UnsignedInt']['input'];
 };
 
+export type LoginVeranstalterMutationVariables = Exact<{
+  input: VeranstalterLoginInput;
+}>;
+
+
+export type LoginVeranstalterMutation = { __typename?: 'Mutation', loginVeranstalter: { __typename?: 'VeranstalterPayload', email: string } };
+
 export type MyVeranstaltungDummyQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MyVeranstaltungDummyQueryQuery = { __typename?: 'Query', veranstaltungDummy: { __typename?: 'Veranstaltung', name: string } };
 
+export const LoginVeranstalterDocument = gql`
+    mutation LoginVeranstalter($input: VeranstalterLoginInput!) {
+  loginVeranstalter(input: $input) {
+    email
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LoginVeranstalterGQL extends Apollo.Mutation<LoginVeranstalterMutation, LoginVeranstalterMutationVariables> {
+    document = LoginVeranstalterDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const MyVeranstaltungDummyQueryDocument = gql`
     query MyVeranstaltungDummyQuery {
   veranstaltungDummy {

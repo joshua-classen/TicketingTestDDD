@@ -1,0 +1,5 @@
+mutation LoginVeranstalter($input: VeranstalterLoginInput!) {
+  loginVeranstalter(input: $input) {
+    email
+  }
+}
