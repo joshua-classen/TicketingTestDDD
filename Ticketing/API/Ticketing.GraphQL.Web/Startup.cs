@@ -1,10 +1,8 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Stripe;
+using Ticketing.GraphQL.Web.EmailService;
 using Ticketing.GraphQL.Web.GraphQLTypes;
 using Ticketing.GraphQL.Web.Repository;
 using Ticketing.GraphQL.Web.Schema.Mutations;
@@ -26,6 +24,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        
+        
         
         services.AddCors(options =>
         {
@@ -57,6 +57,14 @@ public class Startup
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<TicketingDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddHttpContextAccessor();
+        
+        
+        services.Configure<IdentityOptions>(opts =>
+        {
+            opts.SignIn.RequireConfirmedEmail = true;
+        });
         
         // Konfiguriere JWT-Authentifizierung
         var jwtIssuer = _configuration.GetSection("Jwt:Issuer").Get<string>();
@@ -75,7 +83,7 @@ public class Startup
         {
             options.Cookie.Name = "myAuthCookie";
             options.Cookie.HttpOnly = true;
-            options.ExpireTimeSpan = TimeSpan.FromMinutes(15); // Set your desired expiration time
+            options.ExpireTimeSpan = TimeSpan.FromSeconds(300);; // Set your desired expiration time
             options.SlidingExpiration = true;
             options.LoginPath = "/auth/login"; // Set your login path
             options.LogoutPath = "/auth/login"; // Set your logout path
@@ -120,6 +128,7 @@ public class Startup
         //ok hier noch überarbeiten. Das wird nur initialisiert wenn es auch in dem rest gebraucht wird.
         
         services.AddSingleton<IStripeEnpointWebHookSecret>(new StripeEndpointWebHookSecretResolver());
+        services.AddSingleton<IEmailSender, EmailSenderMailkit>();
         services.AddScoped<UserManager<IdentityUser>>();
         services.AddScoped<SignInManager<IdentityUser>>();
         services.AddScoped<TicketingDbContext>();
